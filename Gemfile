@@ -33,6 +33,12 @@ group :development do
   # Can be configured to work on production as well see: https://github.com/MiniProfiler/rack-mini-profiler/blob/master/README.md
   gem 'rack-mini-profiler', '~> 2.0'
   gem 'listen', '~> 3.3'
+  gem 'date'
+  gem 'lorem_ipsum_amet', '~> 0.6.2'
+  gem 'ffaker'
+  gem 'slim-rails'
+  gem 'html2slim'
+  gem 'erb_lint'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
