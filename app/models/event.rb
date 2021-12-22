@@ -15,4 +15,9 @@ class Event < ApplicationRecord
 #                  'must be a valid datetime')
 #     end
 #   end
+  belongs_to :user
+  has_many :items
+  has_many :comments
+  # has_many :users, through: :commnets
+  has_many :comentators, through: :comments, source: :user
 end

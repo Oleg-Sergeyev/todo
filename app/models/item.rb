@@ -14,4 +14,7 @@ class Item < ApplicationRecord
 #                  'must be a valid datetime')
 #     end
 #   end
+
+  belongs_to :event
+  has_one :has_user, through: :event, source: :user
 end
