@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_12_22_113938) do
+ActiveRecord::Schema.define(version: 2021_12_22_220609) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -18,10 +18,11 @@ ActiveRecord::Schema.define(version: 2021_12_22_113938) do
   create_table "comments", comment: "Комментарии пользователей", force: :cascade do |t|
     t.text "content", comment: "Содержимое сообщения"
     t.bigint "user_id"
-    t.bigint "event_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["event_id"], name: "index_comments_on_event_id"
+    t.string "commentable_type", null: false
+    t.bigint "commentable_id", null: false
+    t.index ["commentable_type", "commentable_id"], name: "index_comments_on_commentable"
     t.index ["user_id"], name: "index_comments_on_user_id"
   end
 
@@ -53,6 +54,14 @@ ActiveRecord::Schema.define(version: 2021_12_22_113938) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "seos", comment: "Теги для поисковых ситем", force: :cascade do |t|
+    t.string "title", comment: "Тег title"
+    t.string "description", comment: "Тег desription"
+    t.string "keywords", comment: "Тег keywords"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "users", comment: "Пользователи системы", force: :cascade do |t|
     t.string "name", comment: "Имя, которое используется для входа"
     t.string "email", comment: "Электронный адрес пользователя"
@@ -64,7 +73,6 @@ ActiveRecord::Schema.define(version: 2021_12_22_113938) do
     t.index ["name"], name: "index_users_on_name", unique: true
   end
 
-  add_foreign_key "comments", "events"
   add_foreign_key "comments", "users"
   add_foreign_key "events", "users"
   add_foreign_key "items", "events"

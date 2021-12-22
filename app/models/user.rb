@@ -9,5 +9,13 @@ class User < ApplicationRecord
   has_many :comments
   has_many :events
   has_many :has_items, through: :events, source: :items
-  has_many :commented_events, through: :comments, source: :event
+  # has_many :commented_events, through: :comments, source: :event
+  has_many :commented_events,
+           through: :comments,
+           source: :commentable,
+           source_type: :Event
+  has_many :commented_users,
+           through: :comments,
+           source: :commentable,
+           source_type: :User
 end

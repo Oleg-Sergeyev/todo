@@ -8,7 +8,7 @@ Role.create!(name: 'Пользователь', code: :default)
 
 hash_users = 10.times.map do
   {
-    name: FFaker::Internet.user_name[0...16],
+    name: FFaker::Internet.user_name[1...15],
     email: FFaker::Internet.safe_email,
     role: Role.find_by(code: :default)
   }
@@ -34,10 +34,12 @@ end
 Item.create! hash_items
 
 hash_comments = 200.times.map do
+  commentable = (rand(2) == 1 ? events : users).sample
   {
     content: FFaker::Lorem.paragraph,
     user: users.sample,
-    event: events.sample
+    commentable_id: commentable.id,
+    commentable_type: commentable.class.to_s
   }
 end
 
