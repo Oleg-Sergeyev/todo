@@ -4,7 +4,16 @@ class Comment < ApplicationRecord
 
   belongs_to :user
   belongs_to :commentable, polymorphic: true
-  has_many :seos
-  has_many :seos, as: :promoted
-  has_many :promotions, through: :seos, source: :user
+
+  #has_many :seos, as: :promoted
+
+  # has_many :promoted_users,
+  #          through: :seos,
+  #          source: :promoted,
+  #          source_type: :User
+  
+  #has_many :promoted_comments,
+  #         through: :seos,
+  #         source: :promoted,
+  #         source_type: :Comment
 end

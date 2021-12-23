@@ -9,7 +9,7 @@ Role.create!(name: 'Пользователь', code: :default)
 
 hash_users = 10.times.map do
   {
-    name: FFaker::Internet.user_name[1...15],
+    name: FFaker::Internet.user_name[0...15],
     email: FFaker::Internet.safe_email,
     role: Role.find_by(code: :default)
   }
@@ -44,14 +44,15 @@ hash_comments = 200.times.map do
   }
 end
 
-Comment.create! hash_comments
+comments = Comment.create! hash_comments
 
 hash_seos = 200.times.map do
   promoted = (rand(2) == 1 ? comments : users).sample
   {
-    title: FFaker::Lorem.sentence,
-    description: FFaker::Lorem.sentence(15),
-    keywords: FFaker::Lorem.sentence(15),
+    #comment: comments.sample,
+    title: FFaker::Lorem.sentence(1),
+    description: FFaker::Lorem.sentence(10),
+    keywords: FFaker::Lorem.sentence(12),
     promoted_id: promoted.id,
     promoted_type: promoted.class.to_s
   }
