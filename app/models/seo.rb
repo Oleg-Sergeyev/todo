@@ -6,6 +6,7 @@ class Seo < ApplicationRecord
   validates :description, length: { maximum: 155, minimum: 70 }
   validates :keywords, length: { maximum: 600, minimum: 0 }
 
-  # belongs_to :user
-  #belongs_to :commentable, polymorphic: true
+  belongs_to :user
+  belongs_to :comment
+  belongs_to :promoted, polymorphic: true
 end

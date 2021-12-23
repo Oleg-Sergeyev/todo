@@ -1,4 +1,5 @@
 Comment.destroy_all
+Seo.destroy_all
 Item.destroy_all
 Event.destroy_all
 User.destroy_all
@@ -44,3 +45,16 @@ hash_comments = 200.times.map do
 end
 
 Comment.create! hash_comments
+
+hash_seos = 200.times.map do
+  promoted = (rand(2) == 1 ? comments : users).sample
+  {
+    title: FFaker::Lorem.sentence,
+    description: FFaker::Lorem.sentence(15),
+    keywords: FFaker::Lorem.sentence(15),
+    promoted_id: promoted.id,
+    promoted_type: promoted.class.to_s
+  }
+end
+
+Seo.create! hash_seos
