@@ -4,7 +4,7 @@ class User < ApplicationRecord
   validates :name, presence: true
   validates :name, length: { maximum: 16, minimum: 2 }
   validates :name, uniqueness: true
-
+  
   belongs_to :role
   has_many :comments
   has_many :events
@@ -19,14 +19,5 @@ class User < ApplicationRecord
            source: :commentable,
            source_type: :User
 
-  has_many :seos, as: :promoted
-
-  # has_many :promoted_comments,
-  #          through: :seos,
-  #          source: :promoted,
-  #          source_type: :Comment
-  # has_many :promoted_users,
-  #          through: :seos,
-  #          source: :promoted,
-  #          source_type: :User
+  has_one :seos, as: :promoted
 end

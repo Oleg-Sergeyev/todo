@@ -1,4 +1,4 @@
 Rails.application.routes.draw do
-  get 'stats/index'
-  # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
+  get 'stats', to: 'stats#index'
+  #get 'about', to: 'abount#index', as: 'about_index'
 end
