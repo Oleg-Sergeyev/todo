@@ -4,10 +4,10 @@ class User < ApplicationRecord
   validates :name, presence: true
   validates :name, length: { maximum: 16, minimum: 2 }
   validates :name, uniqueness: true
-  
+
   belongs_to :role
-  has_many :comments
-  has_many :events
+  has_many :comments, dependent: :destroy
+  has_many :events, dependent: :destroy
   has_many :has_items, through: :events, source: :items
 
   has_many :commented_events,

@@ -14,7 +14,7 @@ hash_users = 10.times.map do
     name: FFaker::Internet.user_name[0...15],
     email: FFaker::Internet.safe_email,
     role: Role.find_by(code: :default),
-    active: rand(2) == 1 ? true : false,
+    active: [true, false].sample,
     events_unffd_count: 0,
     events_ffd_count: 0,
     items_unffd_count: 0,
@@ -26,10 +26,10 @@ users = User.create! hash_users
 
 hash_events = 20.times.map do
   {
-    name: FFaker::HipsterIpsum.paragraph,
+    name: FFaker::HipsterIpsum.phrase,
     content: FFaker::HipsterIpsum.paragraphs,
     user: users.sample,
-    done: rand(2) == 1 ? true : false
+    done: [true, false].sample
   }
 end
 
@@ -38,7 +38,7 @@ hash_items = 200.times.map do
   {
     name: FFaker::HipsterIpsum.paragraph,
     event: events.sample,
-    done: rand(2) == 1 ? true : false
+    done: [true, false].sample
   }
 end
 Item.create! hash_items

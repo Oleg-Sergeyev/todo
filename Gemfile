@@ -39,6 +39,7 @@ group :development do
   gem 'slim-rails'
   gem 'html2slim'
   gem 'erb_lint'
+  gem 'kaminari'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
