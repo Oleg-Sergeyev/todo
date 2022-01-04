@@ -3,7 +3,9 @@ class EventsController < ApplicationController
 
   # GET /events or /events.json
   def index
-    @events = Event.includes(:items).page(params[:page]).per(5)
+    #@events = Event.includes(:items).page(params[:page]).per(5)
+    @events = Event.includes(:items).page(params[:page]).per(10)
+    @users = User.includes(:events)
   end
 
   # GET /events/1 or /events/1.json
