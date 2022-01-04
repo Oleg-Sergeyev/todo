@@ -1,11 +1,13 @@
 class EventsController < ApplicationController
-  before_action :set_event, only: %i[ show edit update destroy ]
+  before_action :set_event, only: %i[show edit update destroy]
 
   # GET /events or /events.json
   def index
     #@events = Event.includes(:items).page(params[:page]).per(5)
-    @events = Event.includes(:items).page(params[:page]).per(10)
+    #@events = Event.includes(:items).page(params[:page]).per(10)
+    @events = Event.where('created_at > ?', DateTime.now).includes(:items).page(params[:page]).per(10)
     @users = User.includes(:events)
+    @date = DateTime.now
   end
 
   # GET /events/1 or /events/1.json
@@ -23,15 +25,23 @@ class EventsController < ApplicationController
 
   # POST /events or /events.json
   def create
-    @event = Event.new(event_params.merge(user: User.first))
+    if event_params.key?('date') #&& event_params[:date] != ''
+      Rails.logger.info "GET DATE = #{event_params[:date]}"
+      @events = Event.where('created_at > ?', DateTime.parse(event_params[:date])).includes(:items).page(params[:page]).per(10)
+      @users = User.includes(:events)
+      @date = DateTime.parse(event_params[:date])
+      render :index, status: :unprocessable_entity
+    else
+      @event = Event.new(event_params.merge(user: User.first))
 
-    respond_to do |format|
-      if @event.save
-        format.html { redirect_to event_url(@event), notice: "Event was successfully created." }
-        format.json { render :show, status: :created, location: @event }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @event.errors, status: :unprocessable_entity }
+      respond_to do |format|
+        if @event.save
+          format.html { redirect_to event_url(@event), notice: "Event was successfully created." }
+          format.json { render :show, status: :created, location: @event }
+        else
+          format.html { render :new, status: :unprocessable_entity }
+          format.json { render json: @event.errors, status: :unprocessable_entity }
+        end
       end
     end
   end
@@ -67,6 +77,6 @@ class EventsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def event_params
-      params.fetch(:event).permit(:name, :content, :done, :user)
+      params.require(:event).permit(:name, :content, :done, :user, :date)
     end
 end

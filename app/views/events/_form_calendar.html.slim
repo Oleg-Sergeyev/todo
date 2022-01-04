@@ -1,0 +1,5 @@
+= form_for :event do |f|
+  .field
+    = f.date_field :date, value: @date.strftime("%Y-%m-%d")
+  .actions 
+    = f.submit 'Применить', class: "btn custom-btn", data: { disable_with: false }

@@ -1,18 +1,24 @@
-h1 Listing events
-
-table
+h1 Список основных заданий
+p
+  == render 'form_calendar'
+p 
+  h5 Выборка на
+  = @date.strftime("%d-%m-%Y, %H:%M")
+table.table.table-striped
   thead
     tr
-      th Имя
-      th Основное задание 
+      th Пользователь
+      th Задание 
+      th Дата создания
       th Подзадания 
       th Изменить
       th Удалить
   tbody
-    - @events.order(user_id: :asc).each do |event|
+    - @events.order(created_at: :desc).each do |event|
       tr
         td = @users.find(event.user_id).name
         td = link_to event.name, event
+        td = event.created_at
         td = event.items.count
         td = link_to 'Edit', edit_event_path(event)
         td = link_to 'Destroy', event, data: { confirm: 'Are you sure?' }, method: :delete
