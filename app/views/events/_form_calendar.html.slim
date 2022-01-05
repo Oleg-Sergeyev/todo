@@ -1,5 +1,13 @@
-= form_for :event do |f|
-  .field
-    = f.date_field :date, value: @date.strftime("%Y-%m-%d")
-  .actions 
-    = f.submit 'Применить', class: "btn custom-btn", data: { disable_with: false }
+div id = 'calendar_event' style ='margin: 5px; display: flex;'
+  = form_for :event do |f|
+    div class = 'container' style ='display: flex; justify-content: space-around;'
+      div style ='margin: 8px 5px 5px 0px; display: flex; width: 105%; justify-content: space-around;'
+        .field
+          = f.date_field :start_date, value: @start_date.strftime("%Y-%m-%d"), class: 'form-control form-control-sm', style:'padding: 5px; marging: 5px;'
+        .field
+          = f.label '<->', class: 'form-label', style:'padding: 5px; marging: 5px;'
+        .field
+          = f.date_field :final_date, value: @final_date.strftime("%Y-%m-%d"), class: 'form-control form-control-sm', style:'padding: 5px; marging: 5px;'
+      div class = 'container'
+        .actions 
+          = f.submit 'Применить', class: 'btn btn-primary mb-3', data: { disable_with: false }, style:'margin: 5px; padding-botom: 5px;'
