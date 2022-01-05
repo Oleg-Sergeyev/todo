@@ -5,7 +5,7 @@ div class = 'main-container mb-3' style ='margin: 5px;'
   div id = 'date' class = 'mb-3' style ='margin: 5px;'
     == render 'form_calendar'
   div id = 'date_view' class = 'mb-3' style ='margin-left: 20px;'
-    b Выборка: 
+    b Выборка за период: 
     b =@start_date.strftime("%d-%m-%Y, %H:%M")
     b  - 
     b =@final_date.strftime("%d-%m-%Y, %H:%M")
@@ -24,7 +24,7 @@ div class = 'main-container mb-3' style ='margin: 5px;'
           tr
             td = @users.find(event.user_id).name
             td = link_to event.name, event
-            td = event.created_at
+            td = event.created_at.strftime("%d-%m-%Y, %H:%M")
             td = event.items.count
             td = link_to 'Edit', edit_event_path(event)
             td = link_to 'Destroy', event, data: { confirm: 'Are you sure?' }, method: :delete

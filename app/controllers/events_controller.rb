@@ -25,14 +25,9 @@ class EventsController < ApplicationController
   # POST /events or /events.json
   def create
     if event_params.key?('start_date') || event_params.key?('final_date')
-      @events = get_data(DateTime.parse(event_params[:start_date]).beginning_of_day, DateTime.parse(event_params[:final_date]).end_of_day)
-      @users = User.includes(:events)
-      @start_date = DateTime.parse(event_params[:start_date]).beginning_of_day
-      @final_date = DateTime.parse(event_params[:final_date]).end_of_day
-      render :index
+      render_query(event_params[:start_date].to_time.beginning_of_day, event_params[:final_date].to_time.end_of_day)
     else
       @event = Event.new(event_params.merge(user: User.first))
-
       respond_to do |format|
         if @event.save
           format.html { redirect_to event_url(@event), notice: 'Event was successfully created.' }
@@ -80,7 +75,15 @@ class EventsController < ApplicationController
     params.require(:event).permit(:name, :content, :done, :user, :start_date, :final_date)
   end
 
-  def get_data(start_date = nil, final_date = nil)
-    Event.where(created_at: start_date..final_date).includes(:items).page(params[:page]).per(10)
+  def get_data(start_date, final_date)
+    Event.where(created_at: start_date...final_date).includes(:items).page(params[:page]).per(10)
+  end
+
+  def render_query(start_date, final_date)
+    @start_date = start_date.to_time.beginning_of_day
+    @final_date = final_date.to_time.end_of_day
+    @events = get_data(@start_date, @final_date)
+    @users = User.includes(:events)
+    render :index
   end
 end
