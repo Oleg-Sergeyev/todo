@@ -1,29 +1,33 @@
-h1 Статистика
-
-table.table.table-striped
-  thead 
-    tr
-      th Ключ
-      th Имя 
-      th Эл.почта 
-      th Статус
-      th Задания
-      th Выполнено  
-      th Не выпол.
-      th Подзадания
-      th Выполено  
-      th Не выпол.
-  tbody
-    - @users.each do |user|
-      tr
-        td = user.id 
-        td = user.name 
-        td = user.email 
-        td = user.active? ? 'yes' : 'no'
-        td = user.events_count
-        td = user.events_ffd_count
-        td = user.events_unffd_count
-        td = Item.where(event_id: user.events.ids).count
-        td = user.items_ffd_count
-        td = user.items_unffd_count
+div class = 'main-container mb-3' style ='margin: 5px; padding: 5px;'
+  div style ='margin-left: 15px;'
+    h1 Статистика
+  div id = 'table_view' class = 'mb-3' style ='margin: 10px;'
+    table.table.table-striped
+      thead 
+        tr
+          th Ключ
+          th Имя 
+          th Эл.почта 
+          th Статус
+          th Задания
+          th Выполнено  
+          th Не выпол.
+          th Подзадания
+          th Выполено  
+          th Не выпол.
+      tbody
+        - @users.each do |user|
+          tr
+            td = user.id 
+            td = user.name 
+            td = user.email 
+            td = user.active? ? 'yes' : 'no'
+            td = user.events_count
+            td = user.events_ffd_count
+            td = user.events_unffd_count
+            td = Item.where(event_id: user.events.ids).count
+            td = user.items_ffd_count
+            td = user.items_unffd_count
+  div class = 'mb-3' style = 'margin-left: 5px;'
+    = link_to 'Задания', events_path, class: 'btn btn-primary', style: 'margin: 5px'
     

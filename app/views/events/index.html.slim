@@ -1,10 +1,12 @@
-div class = 'main-container mb-3' style ='margin: 5px;'
-  div style ='margin: 5px;'
+div class = 'main-container mb-3' style ='margin: 5px; padding: 5px;'
+  div style ='margin-left: 15px;'
     h1 Список основных заданий
     p
-  div id = 'date' class = 'mb-3' style ='margin: 5px;'
+  div id = 'date' class = 'mb-3' style ='margin-left: 5px;'
     == render 'form_calendar'
-  div id = 'date_view' class = 'mb-3' style ='margin-left: 20px;'
+  div id = 'paginate' class = 'mb-3' style ='margin-left: 15px;'
+    = paginate @events
+  div id = 'date_view' class = 'mb-3' style ='margin-left: 15px;'
     b Выборка за период: 
     b =@start_date.strftime("%d-%m-%Y, %H:%M")
     b  - 
