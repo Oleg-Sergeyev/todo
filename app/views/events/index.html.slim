@@ -13,6 +13,7 @@ div class = 'main-container mb-3' style ='margin: 5px;'
     table.table.table-striped class ='table table-striped' style ='margin: 5px;'
       thead
         tr
+          th N
           th Пользователь
           th Задание 
           th Дата создания
@@ -20,8 +21,9 @@ div class = 'main-container mb-3' style ='margin: 5px;'
           th Изменить
           th Удалить
       tbody
-        - @events.order(created_at: :desc).each do |event|
+        - @events.order(created_at: :desc).each_with_index do |event, index|
           tr
+            td = index + 1
             td = @users.find(event.user_id).name
             td = link_to event.name, event
             td = event.created_at.strftime("%d-%m-%Y, %H:%M")

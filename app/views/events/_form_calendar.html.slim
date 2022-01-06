@@ -8,6 +8,11 @@ div id = 'calendar_event' style ='margin: 5px; display: flex;'
           = f.label '<->', class: 'form-label', style:'padding: 5px; marging: 5px;'
         .field
           = f.date_field :final_date, value: @final_date.strftime("%Y-%m-%d"), class: 'form-control form-control-sm', style:'padding: 5px; marging: 5px;'
+      div class = 'container' style ='display: flex; justify-content: space-around; margin-top: 10px;'
+        .field
+          = f.label 'Отображать по', style:'width: 130px'
+        .field
+          = f.select(:rows_count, [['5'], ['15'], ['20'], ['25'], ['30'], ['35'], ['40']], {disabled: '40', selected: @rows_count})
       div class = 'container'
         .actions 
           = f.submit 'Применить', class: 'btn btn-primary mb-3', data: { disable_with: false }, style:'margin: 5px; padding-botom: 5px;'

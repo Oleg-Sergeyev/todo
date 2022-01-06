@@ -1,7 +1,6 @@
 h1 Editing event
 
 == render 'form'
-
-=> link_to 'Show', @event
-'|
-=< link_to 'Back', events_path
+div class = 'mb-3' style = 'margin-left: 5px;'
+  = link_to 'Show', @event, class: 'btn btn-primary', style: 'margin: 5px'
+  = link_to 'Back', events_path, class: 'btn btn-primary', style: 'margin: 5px'
