@@ -6,7 +6,7 @@ class EventsController < ApplicationController
 
   # GET /events or /events.json
   def index
-    if cookies[:start_date].empty? && cookies[:final_date].empty?
+    if cookies[:start_date].nil? && cookies[:final_date].nil?
       cookies.permanent[:start_date] = DateTime.now.beginning_of_day
       cookies.permanent[:final_date] = DateTime.now.end_of_day
     end
@@ -30,9 +30,7 @@ class EventsController < ApplicationController
   # POST /events or /events.json
   def create
     if event_params.key?('start_date') || event_params.key?('final_date')
-      #return if check_dates(event_params[:start_date], event_params[:final_date])
-
-      render_query(event_params[:start_date], event_params[:final_date])
+      check_dates([event_params[:start_date].to_time, event_params[:final_date].to_time])
     else
       @event = Event.new(event_params.merge(user: User.first))
       respond_to do |format|
@@ -86,23 +84,31 @@ class EventsController < ApplicationController
     Event.where(created_at: start_date...final_date).includes(:items).page(params[:page]).per(10)
   end
 
-  def render_query(start_date = nil, final_date = nil)
-    @start_date = start_date.to_time.beginning_of_day
-    @final_date = final_date.to_time.end_of_day
-    cookies.permanent[:start_date] = @start_date
-    cookies.permanent[:final_date] = @final_date
-    @events = get_data(@start_date, @final_date)
+  def render_query
     @users = User.includes(:events)
     render :index
   end
 
-  # def check_dates(start_date, final_date)
-  #   if start_date.empty? && final_date.empty?
-  #     @start_date = start_date.to_time.beginning_of_day
-  #     @final_date = final_date.to_time.end_of_day
-  #     @events = Event.includes(:items).page(params[:page]).per(10)
-  #     @users = User.includes(:events)
-  #     render :index
-  #   end
-  # end
+  def check_dates(dates)
+    if dates.first.nil? && dates.last.nil?
+      @events = Event.includes(:items).page(params[:page]).per(10)
+      @start_date = Event.where(created_at: Event.select('MIN(created_at)')).pluck(:created_at).first.to_time.beginning_of_day
+      @final_date = Event.where(created_at: Event.select('MAX(created_at)')).pluck(:created_at).first.to_time.end_of_day
+    elsif dates.first && dates.last
+      @start_date = dates.first.beginning_of_day
+      @final_date = dates.last.end_of_day
+      @events = get_data(@start_date, @final_date)
+    elsif dates.first.nil?
+      @start_date = Event.where(created_at: Event.select('MIN(created_at)')).pluck(:created_at).first.to_time.beginning_of_day
+      @final_date = dates.last.end_of_day
+      @events = get_data(@start_date, @final_date)
+    elsif dates.last.nil?
+      @final_date = DateTime.now.end_of_day
+      @start_date = dates.first.beginning_of_day
+      @events = get_data(@start_date, @final_date)
+    end
+    cookies.permanent[:start_date] = @start_date
+    cookies.permanent[:final_date] = @final_date
+    render_query
+  end
 end
