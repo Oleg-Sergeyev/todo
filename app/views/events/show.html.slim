@@ -1,22 +1,24 @@
-p#notice = notice
+div class = 'mb-3' style ='margin-left: 15px;'
+  div class = 'mb-3' style ='margin-left: 10px;'
+    p#notice = notice
 
-p 
-  strong Name:
-  =< @event.name
-p
-  strong Content:
-  =< @event.content
-p 
-  strong Done:
-  =< @event.done
-p 
-  strong Items:
-  table 
-    - @event.items.order(created_at: :desc).each_with_index do |item, i|
-      tr
-        td = i + 1
-        td = item.name
-
-=> link_to 'Edit', edit_event_path(@event)
-'|
-=< link_to 'Back', events_path
+    p 
+      strong Name:
+      =< @event.name
+    p
+      strong Content:
+      =< @event.content
+    p 
+      strong Done:
+      =< @event.done
+    p 
+      strong Items:
+      table 
+        - @event.items.order(created_at: :desc).each_with_index do |item, i|
+          tr
+            td = i + 1
+            td = item.name
+    div class = 'mb-3'
+      => link_to 'Edit', edit_event_path(@event), class: 'btn btn-primary'
+      
+      =< link_to 'Back', events_path, class: 'btn btn-primary'
