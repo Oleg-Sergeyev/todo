@@ -40,6 +40,11 @@ group :development do
   gem 'html2slim'
   gem 'erb_lint'
   gem 'kaminari'
+  gem 'activeadmin'
+  gem 'devise'
+  gem 'cancancan'
+  gem 'draper'
+  gem 'pundit'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
