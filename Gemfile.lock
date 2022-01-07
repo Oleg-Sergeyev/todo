@@ -76,6 +76,10 @@ GEM
     arbre (1.4.0)
       activesupport (>= 3.0.0, < 6.2)
       ruby2_keywords (>= 0.0.2, < 1.0)
+    arctic_admin (3.3.0)
+      activeadmin (>= 1.1.0, < 3.0)
+      font-awesome-sass (~> 5.0)
+      jquery-rails
     ast (2.4.2)
     bcrypt (3.1.16)
     better_html (1.0.16)
@@ -119,6 +123,8 @@ GEM
     erubi (1.10.0)
     ffaker (2.20.0)
     ffi (1.15.4)
+    font-awesome-sass (5.15.1)
+      sassc (>= 1.11)
     formtastic (4.0.0)
       actionpack (>= 5.2.0)
     formtastic_i18n (0.7.0)
@@ -299,6 +305,7 @@ PLATFORMS
 
 DEPENDENCIES
   activeadmin
+  arctic_admin
   bootsnap (>= 1.4.4)
   byebug
   cancancan

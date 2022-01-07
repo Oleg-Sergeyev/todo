@@ -45,6 +45,7 @@ group :development do
   gem 'cancancan'
   gem 'draper'
   gem 'pundit'
+  gem 'arctic_admin'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem

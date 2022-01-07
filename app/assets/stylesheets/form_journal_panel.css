@@ -1,0 +1,17 @@
+#app_journal_btn {
+  background-color: #0d6efd;
+  height: 35px;
+}
+.iput_dates_form{
+  display: flex;
+  align-items: center;
+  height: fit-content;
+}
+.input_row_count { 
+  display: flex; 
+  height: fit-content;
+  margin: 0 5px 0 5px;
+}
+.apply_btn{
+  margin: 0 0 0 5px;
+}

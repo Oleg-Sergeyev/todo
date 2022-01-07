@@ -1,0 +1,16 @@
+div id = 'calendar_event'
+  = form_for :event do |f|
+    div class = "iput_dates_form"
+      div style ='margin: 8px 5px 5px 0px; display: flex; justify-content: space-around;'
+        .field
+          = f.date_field :start_date, value: @start_date.strftime("%Y-%m-%d"), class: 'form-control form-control-sm start_date', id:'start_date'
+        .field
+          = f.date_field :final_date, value: @final_date.strftime("%Y-%m-%d"), class: 'form-control form-control-sm'
+      div class = 'input_row_count'
+        .field
+          = f.label 'Отображать по', style:'width: 130px'
+        .field
+          = f.select(:rows_count, [['5'], ['15'], ['20'], ['25'], ['30'], ['35'], ['40']], {disabled: '40', selected: @rows_count})
+      div class = 'apply_btn'
+        .actions 
+          = f.submit 'Применить', class: 'btn btn-primary mb', data: { disable_with: false }, id:'app_journal_btn'
