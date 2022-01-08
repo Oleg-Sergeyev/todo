@@ -15,7 +15,6 @@ class EventsController < ApplicationController
     @final_date = cookies[:final_date].to_time
     @events = get_data(@start_date, @final_date)
     @users = User.includes(:events)
-    Rails.logger.info "== INDEX == #{@start_date} <--> #{@final_date}"
   end
 
   # GET /events/1 or /events/1.json
@@ -101,7 +100,6 @@ class EventsController < ApplicationController
       @final_date = Event.where(created_at: Event.select('MAX(created_at)'))
                          .pluck(:created_at).first.to_time.end_of_day
     elsif dates.first && dates.last
-      Rails.logger.info 'HERE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!'
       @start_date = dates.first.beginning_of_day
       @final_date = dates.last.end_of_day
       @events = get_data(@start_date, @final_date)

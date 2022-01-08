@@ -22,8 +22,13 @@ gem 'jbuilder', '~> 2.7'
 gem 'bootsnap', '>= 1.4.4', require: false
 
 group :development, :test do
-  # Call 'byebug' anywhere in the code to stop execution and get a debugger console
-  gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
+ # Call 'byebug' anywhere in the code to stop execution and get a debugger console
+ gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
+ gem 'rspec-rails'
+ gem 'activeadmin'
+ gem 'devise'
+ gem 'ffaker'
+ gem 'bcrypt'
 end
 
 group :development do
@@ -35,13 +40,10 @@ group :development do
   gem 'listen', '~> 3.3'
   gem 'date'
   gem 'lorem_ipsum_amet', '~> 0.6.2'
-  gem 'ffaker'
   gem 'slim-rails'
   gem 'html2slim'
   gem 'erb_lint'
   gem 'kaminari'
-  gem 'activeadmin'
-  gem 'devise'
   gem 'cancancan'
   gem 'draper'
   gem 'pundit'
