@@ -1,18 +1,20 @@
-require_relative "boot"
+# frozen_string_literal: true
 
-require "rails"
+require_relative 'boot'
+
+require 'rails'
 # Pick the frameworks you want:
-require "active_model/railtie"
-require "active_job/railtie"
-require "active_record/railtie"
+require 'active_model/railtie'
+require 'active_job/railtie'
+require 'active_record/railtie'
 # require "active_storage/engine"
-require "action_controller/railtie"
+require 'action_controller/railtie'
 # require "action_mailer/railtie"
 # require "action_mailbox/engine"
 # require "action_text/engine"
-require "action_view/railtie"
+require 'action_view/railtie'
 # require "action_cable/engine"
-require "sprockets/railtie"
+require 'sprockets/railtie'
 # require "rails/test_unit/railtie"
 
 # Require the gems listed in Gemfile, including any gems
@@ -32,8 +34,19 @@ module Todo
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
     config.time_zone = 'Moscow'
-    #config.active_record.default_timezone = :utc
+    # config.active_record.default_timezone = :utc
     # Don't generate system test files.
     config.generators.system_tests = nil
+    # Don't generate system test files.
+    config.generators do |g|
+      g.org             :active_record
+      g.template_engine :slim
+      g.system_tests    nil
+      g.test_framework  nil
+      g.helper          false
+      g.stylesheets     false
+      g.javascript      false
+      g.factory_bot     dir: 'spec/factories'
+    end
   end
 end

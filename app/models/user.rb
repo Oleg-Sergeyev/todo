@@ -6,7 +6,7 @@ class User < ApplicationRecord
   after_destroy :log_after_destroy
   before_validation :normalize_name, on: :create
   before_validation :set_role, on: %i[create update]
-  before_validation :normalize_email, if: Proc.new { |u| u.email }
+  before_validation :normalize_email, if: proc { |u| u.email }
 
   devise :database_authenticatable,
          :recoverable, :rememberable, :validatable
