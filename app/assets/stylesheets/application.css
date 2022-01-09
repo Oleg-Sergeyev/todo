@@ -27,3 +27,8 @@
 #save_new_event_btn{
   width: fit-content;
 }
+
+.body{
+  background-color: white;
+  height: 100%;
+}
