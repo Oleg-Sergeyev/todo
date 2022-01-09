@@ -22,6 +22,11 @@
     background-color: white;
     border: 1px solid #DDD;
     border-left-width: 1;
+    height: 45px;
+}
+
+.pagination .page.current {
+  background-color: #466efd;
 }
 
 #save_new_event_btn{

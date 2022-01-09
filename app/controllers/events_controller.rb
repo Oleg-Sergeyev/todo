@@ -1,19 +1,21 @@
 # frozen_string_literal: true
-
+require 'classes/time_interval'
 # class EventsController
 class EventsController < ApplicationController
   before_action :set_event, only: %i[show edit update destroy]
   @rows_count = 5
-  # GET /events or /events.json
+
   def index
     if cookies[:start_date].nil? && cookies[:final_date].nil? && cookies[:rows_count].nil?
       cookies.permanent[:start_date] = DateTime.now.beginning_of_day
       cookies.permanent[:final_date] = DateTime.now.end_of_day
       cookies.permanent[:rows_count] = @rows_count
     end
+    Rails.logger.info "!!!!!!!!!!!!!!!!111 @rows_count === #{cookies[:rows_count]}"
     @start_date = cookies[:start_date].to_time
     @final_date = cookies[:final_date].to_time
-    @events = get_data(@start_date, @final_date)
+    @events = TimeInterval.new([@start_date, @final_date], Event, :items)
+                          .records.first.page(params[:page]).per(cookies[:rows_count])
     @users = User.includes(:events)
   end
 
@@ -31,9 +33,9 @@ class EventsController < ApplicationController
   # POST /events or /events.json
   def create
     if event_params.key?('start_date') || event_params.key?('final_date') || event_params.key?('rows_count')
-      @rows_count = event_params[:rows_count].to_i
       cookies.permanent[:rows_count] = event_params[:rows_count].to_i
-      check_dates([event_params[:start_date].to_time, event_params[:final_date].to_time])
+      @rows_count = event_params[:rows_count].to_i
+      interval([event_params[:start_date].to_time, event_params[:final_date].to_time])
     else
       @event = Event.new(event_params.merge(user: User.all.sample))
       respond_to do |format|
@@ -80,41 +82,18 @@ class EventsController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def event_params
-    params.require(:event).permit(:name, :content, :done, :user, :start_date, :final_date, :rows_count, :page)
+    params.require(:event).permit(:name, :content, :done, :user, :start_date, :final_date, :rows_count)
   end
 
-  def get_data(start_date = nil, final_date = nil)
-    Event.where(created_at: start_date...final_date).includes(:items).page(params[:page]).per(cookies[:rows_count])
-  end
-
-  def render_query
+  def interval(dates)
+    @row_count = 5 unless @rows_count # Костыль!!! Иногда @rows_count падает в nil, причина не выяснена.
+    data = TimeInterval.new(dates, Event, :items)
+    @events = data.records.first.page(params[:page]).per(@rows_count)
+    cookies.permanent[:start_date] = data.records.second
+    cookies.permanent[:final_date] = data.records.third
+    @start_date = data.records.second
+    @final_date = data.records.third
     @users = User.includes(:events)
     render :index
-  end
-
-  def check_dates(dates)
-    if dates.first.nil? && dates.last.nil?
-      @events = Event.includes(:items).page(params[:page]).per(cookies[:rows_count])
-      @start_date = Event.where(created_at: Event.select('MIN(created_at)'))
-                         .pluck(:created_at).first.to_time.beginning_of_day
-      @final_date = Event.where(created_at: Event.select('MAX(created_at)'))
-                         .pluck(:created_at).first.to_time.end_of_day
-    elsif dates.first && dates.last
-      @start_date = dates.first.beginning_of_day
-      @final_date = dates.last.end_of_day
-      @events = get_data(@start_date, @final_date)
-    elsif dates.first.nil?
-      @start_date = Event.where(created_at: Event.select('MIN(created_at)'))
-                         .pluck(:created_at).first.to_time.beginning_of_day
-      @final_date = dates.last.end_of_day
-      @events = get_data(@start_date, @final_date)
-    elsif dates.last.nil?
-      @final_date = DateTime.now.end_of_day
-      @start_date = dates.first.beginning_of_day
-      @events = get_data(@start_date, @final_date)
-    end
-    cookies.permanent[:start_date] = @start_date
-    cookies.permanent[:final_date] = @final_date
-    render_query
   end
 end

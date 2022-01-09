@@ -10,7 +10,7 @@ div id = 'calendar_event'
         .field
           = f.label 'Отображать по', style:'width: 130px'
         .field
-          = f.select(:rows_count, [['5'], ['15'], ['20'], ['25'], ['30'], ['35'], ['40']], {disabled: '40', selected: @rows_count})
+          = f.select(:rows_count, [['5'], ['15'], ['20'], ['25'], ['30'], ['35'], ['40']], {disabled: '40', selected: cookies[:rows_count].to_i})
       div class = 'apply_btn'
         .actions 
           = f.submit 'Применить', class: 'btn btn-primary mb', data: { disable_with: false }, id:'app_journal_btn'

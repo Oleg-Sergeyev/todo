@@ -26,16 +26,14 @@ div class = 'main-container mb-3' style ='margin: 5px; padding: 5px;'
       tbody
         - @events.order(created_at: :desc).each_with_index do |event, index|
           tr
-            td = (index + 1) + (@events.count * @events.current_page) - @events.count
+            td = (index + 1) + (cookies[:rows_count].to_i * @events.current_page) - cookies[:rows_count].to_i
             td = @users.find(event.user_id).name
             td = link_to event.name, event
             td = event.created_at.strftime("%d-%m-%Y, %H:%M")
             td = event.items.count
             td = link_to 'Edit', edit_event_path(event)
             td = link_to 'Destroy', event, data: { confirm: 'Are you sure?' }, method: :delete
-    p
   div id = 'date_view' class = 'mb-3' style ='margin-left: 15px;'
     = link_to 'Создать новое задание', new_event_path, class: 'btn btn-primary'
-  p 
   div id = 'paginate' class = 'mb-1' style ='margin-left: 15px;'
     = paginate @events
