@@ -80,7 +80,7 @@ class EventsController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def event_params
-    params.require(:event).permit(:name, :content, :done, :user, :start_date, :final_date, :rows_count)
+    params.require(:event).permit(:name, :content, :done, :user, :start_date, :final_date, :rows_count, :page)
   end
 
   def get_data(start_date = nil, final_date = nil)
