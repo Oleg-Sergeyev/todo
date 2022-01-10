@@ -15,7 +15,7 @@ class EventsController < ApplicationController
     @final_date = cookies[:final_date].to_time
     @users = User.includes(:events)
     @events = TimeInterval.new([@start_date, @final_date], Event, :items)
-                          .records.first.page(params[:page]).per(cookies[:rows_count])
+                          .data_records.first.page(params[:page]).per(cookies[:rows_count])
 
   end
 
@@ -35,11 +35,18 @@ class EventsController < ApplicationController
     if event_params.key?('start_date') || event_params.key?('final_date') || event_params.key?('rows_count')
       cookies.permanent[:rows_count] = event_params[:rows_count].to_i
       @rows_count = event_params[:rows_count].to_i
-      @start_date = event_params[:start_date].to_time
-      @final_date = event_params[:final_date].to_time
+      # @start_date = event_params[:start_date].to_time
+      # @final_date = event_params[:final_date].to_time
+      # cookies.permanent[:start_date] = @start_date
+      # cookies.permanent[:final_date] = @final_date
       @users = User.includes(:events)
-      @events = TimeInterval.new([@start_date, @final_date], Event, :items)
-                            .records.first.page(params[:page]).per(cookies[:rows_count])
+      data = TimeInterval.new([event_params[:start_date], event_params[:final_date]], Event, :items).data_records
+      @events = data.first.page(params[:page]).per(cookies[:rows_count])
+      @start_date = data.second
+      @final_date = data.third
+      cookies.permanent[:start_date] = @start_date
+      cookies.permanent[:final_date] = @final_date
+      Rails.logger.info ">>>>>>>>>>>>>>>>>>>>#{data[1]}<<<<<<<<<<<<<<<<<<<<<<<<<<<"
       render :index
     else
       @event = Event.new(event_params.merge(user: User.all.sample))
