@@ -1,5 +1,5 @@
 
-div class = 'main-container mb-3' style ='margin: 5px; padding: 5px;'
+div class = 'main-container mb-3' style ='margin: 5px; padding: 5px; padding-bottom: 40px;'
   div style ='margin-left: 15px;'
     h1 Список основных заданий
     p
@@ -12,7 +12,7 @@ div class = 'main-container mb-3' style ='margin: 5px; padding: 5px;'
     b =@start_date.strftime("%d-%m-%Y, %H:%M")
     b  - 
     b =@final_date.strftime("%d-%m-%Y, %H:%M")
-  div id = 'table_view' class = 'mb-1' style ='margin: 10px;'
+  div id = 'table_view' class = 'mb-3' style ='margin: 10px;'
     table.table.table-striped class ='table table-striped' style ='margin: 5px;'
       thead
         tr
