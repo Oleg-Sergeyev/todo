@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 require 'classes/time_interval'
+
 # class EventsController
 class EventsController < ApplicationController
   before_action :set_event, only: %i[show edit update destroy]
@@ -16,7 +17,6 @@ class EventsController < ApplicationController
     @users = User.includes(:events)
     @events = TimeInterval.new([@start_date, @final_date], Event, :items)
                           .data_records.first.page(params[:page]).per(cookies[:rows_count])
-
   end
 
   # GET /events/1 or /events/1.json
@@ -32,22 +32,8 @@ class EventsController < ApplicationController
 
   # POST /events or /events.json
   def create
-    if event_params.key?('start_date') || event_params.key?('final_date') || event_params.key?('rows_count')
-      cookies.permanent[:rows_count] = event_params[:rows_count].to_i
-      @rows_count = event_params[:rows_count].to_i
-      # @start_date = event_params[:start_date].to_time
-      # @final_date = event_params[:final_date].to_time
-      # cookies.permanent[:start_date] = @start_date
-      # cookies.permanent[:final_date] = @final_date
-      @users = User.includes(:events)
-      data = TimeInterval.new([event_params[:start_date], event_params[:final_date]], Event, :items).data_records
-      @events = data.first.page(params[:page]).per(cookies[:rows_count])
-      @start_date = data.second
-      @final_date = data.third
-      cookies.permanent[:start_date] = @start_date
-      cookies.permanent[:final_date] = @final_date
-      Rails.logger.info ">>>>>>>>>>>>>>>>>>>>#{data[1]}<<<<<<<<<<<<<<<<<<<<<<<<<<<"
-      render :index
+    if event_params.key?('start_date') || event_params.key?('final_date')
+      render_interval_query(event_params[:rows_count], event_params[:start_date], event_params[:final_date])
     else
       @event = Event.new(event_params.merge(user: User.all.sample))
       respond_to do |format|
@@ -95,5 +81,18 @@ class EventsController < ApplicationController
   # Only allow a list of trusted parameters through.
   def event_params
     params.require(:event).permit(:name, :content, :done, :user, :start_date, :final_date, :rows_count)
+  end
+
+  def render_interval_query(rows_count, start_date, final_date)
+    cookies.permanent[:rows_count] = rows_count
+    @rows_count = rows_count
+    @users = User.includes(:events)
+    data = TimeInterval.new([start_date, final_date], Event, :items).data_records
+    @events = data.first.page(params[:page]).per(@rows_count)
+    @start_date = data.second
+    @final_date = data.third
+    cookies.permanent[:start_date] = @start_date
+    cookies.permanent[:final_date] = @final_date
+    render :index
   end
 end
