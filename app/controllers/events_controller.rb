@@ -7,7 +7,7 @@ class EventsController < ApplicationController
   @rows_count = 5
 
   def index
-    if cookies[:start_date].nil? && cookies[:final_date].nil? && cookies[:rows_count].nil?
+    if cookies[:start_date].nil? || cookies[:final_date].nil? && cookies[:rows_count].nil?
       cookies.permanent[:start_date] = DateTime.now.beginning_of_day
       cookies.permanent[:final_date] = DateTime.now.end_of_day
       cookies.permanent[:rows_count] = @rows_count
@@ -16,7 +16,7 @@ class EventsController < ApplicationController
     @final_date = cookies[:final_date].to_time
     @users = User.includes(:events)
     @events = TimeInterval.new([@start_date, @final_date], Event, :items)
-                          .data_records.first.page(params[:page]).per(cookies[:rows_count])
+                          .records.first.page(params[:page]).per(cookies[:rows_count])
   end
 
   # GET /events/1 or /events/1.json
@@ -87,7 +87,7 @@ class EventsController < ApplicationController
     cookies.permanent[:rows_count] = rows_count
     @rows_count = rows_count
     @users = User.includes(:events)
-    data = TimeInterval.new([start_date, final_date], Event, :items).data_records
+    data = TimeInterval.new([start_date, final_date], Event, :items).records
     @events = data.first.page(params[:page]).per(@rows_count)
     @start_date = data.second
     @final_date = data.third
