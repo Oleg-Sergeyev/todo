@@ -11,12 +11,12 @@ class EventsController < ApplicationController
       cookies.permanent[:final_date] = DateTime.now.end_of_day
       cookies.permanent[:rows_count] = @rows_count
     end
-    Rails.logger.info "!!!!!!!!!!!!!!!!111 @rows_count === #{cookies[:rows_count]}"
     @start_date = cookies[:start_date].to_time
     @final_date = cookies[:final_date].to_time
+    @users = User.includes(:events)
     @events = TimeInterval.new([@start_date, @final_date], Event, :items)
                           .records.first.page(params[:page]).per(cookies[:rows_count])
-    @users = User.includes(:events)
+
   end
 
   # GET /events/1 or /events/1.json
@@ -35,7 +35,12 @@ class EventsController < ApplicationController
     if event_params.key?('start_date') || event_params.key?('final_date') || event_params.key?('rows_count')
       cookies.permanent[:rows_count] = event_params[:rows_count].to_i
       @rows_count = event_params[:rows_count].to_i
-      interval([event_params[:start_date].to_time, event_params[:final_date].to_time])
+      @start_date = event_params[:start_date].to_time
+      @final_date = event_params[:final_date].to_time
+      @users = User.includes(:events)
+      @events = TimeInterval.new([@start_date, @final_date], Event, :items)
+                            .records.first.page(params[:page]).per(cookies[:rows_count])
+      render :index
     else
       @event = Event.new(event_params.merge(user: User.all.sample))
       respond_to do |format|
@@ -83,17 +88,5 @@ class EventsController < ApplicationController
   # Only allow a list of trusted parameters through.
   def event_params
     params.require(:event).permit(:name, :content, :done, :user, :start_date, :final_date, :rows_count)
-  end
-
-  def interval(dates)
-    @row_count = 5 unless @rows_count # Костыль!!! Иногда @rows_count падает в nil, причина не выяснена.
-    data = TimeInterval.new(dates, Event, :items)
-    @events = data.records.first.page(params[:page]).per(@rows_count)
-    cookies.permanent[:start_date] = data.records.second
-    cookies.permanent[:final_date] = data.records.third
-    @start_date = data.records.second
-    @final_date = data.records.third
-    @users = User.includes(:events)
-    render :index
   end
 end
