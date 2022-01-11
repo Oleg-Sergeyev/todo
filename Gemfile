@@ -5,28 +5,27 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby '3.0.2'
 
-# Bundle edge Rails instead: gem 'rails', github: 'rails/rails', branch: 'main'
-gem 'rails', '~> 6.1.4', '>= 6.1.4.3'
-# Use postgresql as the database for Active Record
-gem 'pg', '~> 1.1'
-# Use Puma as the app server
-gem 'puma', '~> 5.0'
-# Use SCSS for stylesheets
-gem 'sass-rails', '>= 6'
-# Transpile app-like JavaScript. Read more: https://github.com/rails/webpacker
-gem 'webpacker', '~> 5.0'
-# Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
+gem 'activeadmin'
+gem 'arctic_admin'
+gem 'bcrypt'
+gem 'cancancan'
+gem 'date'
+gem 'draper'
+gem 'erb_lint'
 gem 'jbuilder', '~> 2.7'
-# Use Active Model has_secure_password
-# gem 'bcrypt', '~> 3.1.7'
+gem 'kaminari'
+gem 'pg', '~> 1.1'
+gem 'puma', '~> 5.0'
+gem 'pundit'
+gem 'rails', '~> 6.1.4', '>= 6.1.4.3'
+gem 'sass-rails', '>= 6'
+gem 'webpacker', '~> 5.0'
 
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.4', require: false
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
-  gem 'activeadmin'
-  gem 'bcrypt'
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
   gem 'devise'
   gem 'factory_bot_rails'
@@ -39,16 +38,10 @@ group :development do
   gem 'web-console', '>= 4.1.0'
   # Display performance information such as SQL time and flame graphs for each request in your browser.
   # Can be configured to work on production as well see: https://github.com/MiniProfiler/rack-mini-profiler/blob/master/README.md
-  gem 'arctic_admin'
-  gem 'cancancan'
-  gem 'date'
-  gem 'draper'
-  gem 'erb_lint'
+
   gem 'html2slim'
-  gem 'kaminari'
   gem 'listen', '~> 3.3'
   gem 'lorem_ipsum_amet', '~> 0.6.2'
-  gem 'pundit'
   gem 'rack-mini-profiler', '~> 2.0'
   gem 'slim-rails'
 end

@@ -12,7 +12,7 @@ class EventsController < ApplicationController
     @final_date = cookies[:final_date].to_time
     @users = User.includes(:events)
     @events = TimeInterval.new([@start_date, @final_date], Event, :items)
-                          .journal.first.page(params[:page]).per(cookies[:rows_count])
+                          .journal[:rows].page(params[:page]).per(cookies[:rows_count])
   end
 
   def default_cookies(rows_count)
@@ -25,6 +25,7 @@ class EventsController < ApplicationController
     cookies.permanent[:start_date] = @start_date
     cookies.permanent[:final_date] = @final_date
   end
+
   # GET /events/1 or /events/1.json
   def show; end
 
@@ -94,9 +95,9 @@ class EventsController < ApplicationController
     @rows_count = rows_count
     @users = User.includes(:events)
     data = TimeInterval.new([start_date, final_date], Event, :items).journal
-    @events = data.first.page(params[:page]).per(@rows_count)
-    @start_date = data.second
-    @final_date = data.third
+    @events = data[:rows].page(params[:page]).per(@rows_count)
+    @start_date = data[:start_date]
+    @final_date = data[:final_date]
     update_cookies
     render :index
   end

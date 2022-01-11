@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   devise_for :users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
   resources :events
-  #get 'events/page/(:page(.:format))', to: 'events#index'
+  # get 'events/page/(:page(.:format))', to: 'events#index'
   get 'events/page', to: 'events#index'
   get 'stats', to: 'stats#index'
   # get 'calendar', to: 'calendar#index', as: 'calendar_index'

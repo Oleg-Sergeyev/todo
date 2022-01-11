@@ -12,18 +12,19 @@ class TimeInterval
   end
 
   def create_query
-    start_date = if @dates.first.nil?
-                   @object.where(created_at: @object.select('MIN(created_at)'))
-                          .pluck(:created_at).first.to_time.beginning_of_day
-                 else
-                   @dates.first.beginning_of_day
-                 end
-    final_date = if @dates.second.nil?
-                   @object.where(created_at: @object.select('MAX(created_at)'))
-                          .pluck(:created_at).first.to_time.end_of_day
-                 else
-                   @dates.second.end_of_day
-                 end
-    [@object.where(created_at: start_date...final_date).includes(@associated_object), start_date, final_date]
+    start = if @dates.first.nil?
+              @object.where(created_at: @object.select('MIN(created_at)'))
+                     .pluck(:created_at).first.to_time.beginning_of_day
+            else
+              @dates.first.beginning_of_day
+            end
+    final = if @dates.second.nil?
+              @object.where(created_at: @object.select('MAX(created_at)'))
+                     .pluck(:created_at).first.to_time.end_of_day
+            else
+              @dates.second.end_of_day
+            end
+    { rows: @object.where(created_at: start_date...final_date).includes(@associated_object), start_date: start,
+      final_date: final }
   end
 end
