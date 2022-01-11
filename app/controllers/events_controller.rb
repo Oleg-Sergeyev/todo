@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'classes/time_interval'
+#require 'classes/time_interval'
 
 # class EventsController
 class EventsController < ApplicationController

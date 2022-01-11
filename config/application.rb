@@ -32,7 +32,7 @@ module Todo
     # in config/environments, which are processed later.
     #
     # config.time_zone = "Central Time (US & Canada)"
-    # config.eager_load_paths << Rails.root.join("extras")
+    config.eager_load_paths << Rails.root.join('lib/classes')
     config.time_zone = 'Moscow'
     # config.active_record.default_timezone = :utc
     # Don't generate system test files.

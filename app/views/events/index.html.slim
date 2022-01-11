@@ -20,6 +20,7 @@ div class = 'main-container mb-3' style ='margin: 5px; padding: 5px; padding-bot
           th Пользователь
           th Задание 
           th Дата создания
+          th Статус
           th Подзадания 
           th Изменить
           th Удалить
@@ -30,6 +31,7 @@ div class = 'main-container mb-3' style ='margin: 5px; padding: 5px; padding-bot
             td = @users.find(event.user_id).name
             td = link_to event.name, event
             td = event.created_at.strftime("%d-%m-%Y, %H:%M")
+            td = event.done
             td = event.items.count
             td = link_to 'Edit', edit_event_path(event)
             td = link_to 'Destroy', event, data: { confirm: 'Are you sure?' }, method: :delete
