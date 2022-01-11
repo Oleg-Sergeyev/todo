@@ -2,13 +2,13 @@
 
 # class Journal
 class TimeInterval
-  attr_accessor :start_date, :final_date, :object, :records
+  attr_accessor :start_date, :final_date, :object, :journal
 
   def initialize(dates, object, associated_object)
     @dates = dates.map(&:to_time)
     @object = object
     @associated_object = associated_object
-    @records = create_query
+    @journal = create_query
   end
 
   def create_query

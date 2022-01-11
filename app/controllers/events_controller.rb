@@ -1,25 +1,30 @@
 # frozen_string_literal: true
 
-#require 'classes/time_interval'
-
 # class EventsController
 class EventsController < ApplicationController
   before_action :set_event, only: %i[show edit update destroy]
   @rows_count = 5
 
   def index
-    if cookies[:start_date].nil? || cookies[:final_date].nil? && cookies[:rows_count].nil?
-      cookies.permanent[:start_date] = DateTime.now.beginning_of_day
-      cookies.permanent[:final_date] = DateTime.now.end_of_day
-      cookies.permanent[:rows_count] = @rows_count
-    end
+    default_cookies(@rows_count) unless cookies[:start_date] || cookies[:final_date]
+
     @start_date = cookies[:start_date].to_time
     @final_date = cookies[:final_date].to_time
     @users = User.includes(:events)
     @events = TimeInterval.new([@start_date, @final_date], Event, :items)
-                          .records.first.page(params[:page]).per(cookies[:rows_count])
+                          .journal.first.page(params[:page]).per(cookies[:rows_count])
   end
 
+  def default_cookies(rows_count)
+    cookies.permanent[:start_date] = DateTime.now.beginning_of_day
+    cookies.permanent[:final_date] = DateTime.now.end_of_day
+    cookies.permanent[:rows_count] = rows_count
+  end
+
+  def update_cookies
+    cookies.permanent[:start_date] = @start_date
+    cookies.permanent[:final_date] = @final_date
+  end
   # GET /events/1 or /events/1.json
   def show; end
 
@@ -33,7 +38,7 @@ class EventsController < ApplicationController
 
   # POST /events or /events.json
   def create
-    if event_params.key?('start_date') || event_params.key?('final_date')
+    if %i[start_date final_date].all? { |s| event_params.key? s }
       render_interval_query(event_params[:rows_count], event_params[:start_date], event_params[:final_date])
     else
       @event = Event.new(event_params.merge(user: User.all.sample))
@@ -88,12 +93,11 @@ class EventsController < ApplicationController
     cookies.permanent[:rows_count] = rows_count
     @rows_count = rows_count
     @users = User.includes(:events)
-    data = TimeInterval.new([start_date, final_date], Event, :items).records
+    data = TimeInterval.new([start_date, final_date], Event, :items).journal
     @events = data.first.page(params[:page]).per(@rows_count)
     @start_date = data.second
     @final_date = data.third
-    cookies.permanent[:start_date] = @start_date
-    cookies.permanent[:final_date] = @final_date
+    update_cookies
     render :index
   end
 end
