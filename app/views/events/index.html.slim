@@ -25,7 +25,7 @@ div class = 'main-container mb-3' style ='margin: 5px; padding: 5px; padding-bot
           th Изменить
           th Удалить
       tbody
-        - @events.order(created_at: :desc).each_with_index do |event, index|
+        - @events.order(created_at: :asc).each_with_index do |event, index|
           tr
             td = (index + 1) + (cookies[:rows_count].to_i * @events.current_page) - cookies[:rows_count].to_i
             td = @users.find(event.user_id).name

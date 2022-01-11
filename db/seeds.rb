@@ -31,7 +31,7 @@ hash_events = 20.times.map do
     content: FFaker::HipsterIpsum.paragraphs,
     user: users.sample,
     done: [true, false].sample
-   }
+  }
 end
 
 events = Event.create! hash_events
@@ -40,7 +40,6 @@ hash_items = 200.times.map do
     name: FFaker::HipsterIpsum.paragraph,
     event: events.sample,
     done: [true, false].sample,
-    #created_at: [ DateTime.now, DateTime.now - 2.day, DateTime.now - 3.day, DateTime.now - 4.day].sample
   }
 end
 Item.create! hash_items
@@ -87,3 +86,7 @@ hash_user =
   }
 
 User.create! hash_user
+
+Event.find_each do |date|
+  date.update(created_at: DateTime.now - rand(0..5).day)
+end
