@@ -1,7 +1,11 @@
 # frozen_string_literal: true
 
-# class User
 class User < ApplicationRecord
+  # Include default devise modules. Others available are:
+  # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
+  devise :database_authenticatable, :registerable,
+         :recoverable, :rememberable, :validatable
+
   before_destroy :log_before_destroy
   after_destroy :log_after_destroy
   before_validation :normalize_name, on: :create
@@ -11,7 +15,7 @@ class User < ApplicationRecord
   devise :database_authenticatable,
          :recoverable, :rememberable, :validatable
   validates :name, presence: true
-  validates :name, length: { maximum: 16, minimum: 2 }
+  validates :name, length: { maximum: 30, minimum: 2 }
   validates :name, uniqueness: true
 
   belongs_to :role
@@ -41,7 +45,7 @@ class User < ApplicationRecord
   end
 
   def normalize_name
-    self.name = name.downcase.titleize
+    self.name = name.downcase if name #.titleize
   end
 
   def log_before_destroy

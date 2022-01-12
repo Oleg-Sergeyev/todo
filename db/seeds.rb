@@ -7,14 +7,16 @@ Event.destroy_all
 User.destroy_all
 Role.destroy_all
 
-Role.create!(name: 'Пользователь', code: :default)
+default_role = Role.create!(name: 'Пользователь', code: :default)
+admin_role = Role.create!(name: 'Администратор', code: :admin)
 
 hash_users = 10.times.map do
+  email = FFaker::Internet.safe_email
   {
-    name: FFaker::Internet.user_name[0...15],
-    email: FFaker::Internet.safe_email,
-    password: 'password',
-    role: Role.find_by(code: :default),
+    name: email,
+    email: email,
+    password: email,
+    role: default_role,
     active: [true, false].sample,
     events_unffd_count: 0,
     events_ffd_count: 0,
@@ -70,12 +72,12 @@ end
 
 Seo.create! hash_seos
 
-#User.create!(email: 'admin@example.com', password: 'password', password_confirmation: 'password') if Rails.env.development?
+#User.create!(name: 'admin@example.com', email: 'admin@example.com', password: 'password', password_confirmation: 'password') if Rails.env.development?
 hash_user =
   {
-    name: 'admin',
+    name: 'admin@example.com',
     email: 'admin@example.com',
-    role: Role.find_by(code: :default),
+    role: admin_role,
     active: [true, false].sample,
     events_unffd_count: 0,
     events_ffd_count: 0,

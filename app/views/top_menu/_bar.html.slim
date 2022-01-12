@@ -1,0 +1,29 @@
+navbar class = "navbar navbar-expand-lg navbar-dark bg-primary"
+  .container-fluid
+     .collapse.navbar-collapse.justify-content-between
+       ul.nav.navbar-nav.navbar-left.mr-auto 
+         li.navbar-item
+         = link_to_unless_current("Старт", { controller: "/home", action: "index" }, class: "nav-link"){ link_to("Старт", { controller: "home", action: "index" }, class: "nav-link disabled") }
+         li.navbar-item
+         = link_to_unless_current("Задания", { controller: "/events", action: "index" }, class: "nav-link") { link_to("Задания", { controller: "events", action: "index" }, class: "nav-link disabled") } 
+         li.navbar-item
+         = link_to_unless_current( "Статистика", { controller: "/stats", action: "index" }, class: "nav-link"){ link_to( "Статистика", { controller: "stats", action: "index" }, class: "nav-link disabled") }
+       ul.nav.navbar-nav.navbar-center.mr-auto
+         li.navbar-item
+           form.form-inline role="search"
+             .form-group.row
+               .col
+                 input.form-control type="text" placeholder="Search"
+               .col  
+                 button.btn.btn-primary.mb-2 type="submit" Submit
+       ul.nav.navbar-nav.navbar-right
+        - if user_signed_in?
+          li.navbar-item
+            span.nav-link #{current_user.email}
+          li.navbar-item
+          = link_to t('label.log_out'), destroy_user_session_path, method: :delete, class: "nav-link"
+        - else 
+          li.navbar-item
+            = link_to t('label.log_in'), new_user_session_path, class: "nav-link"
+          li.navbar-item
+            = link_to t('label.registration'), new_user_registration_path, class: "nav-link"

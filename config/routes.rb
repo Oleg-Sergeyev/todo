@@ -2,8 +2,7 @@
 
 Rails.application.routes.draw do
   root 'home#index'
-  devise_for :users, ActiveAdmin::Devise.config
-  ActiveAdmin.routes(self)
+  devise_for :users
   resources :events
   # get 'events/page/(:page(.:format))', to: 'events#index'
   get 'events/page', to: 'events#index'

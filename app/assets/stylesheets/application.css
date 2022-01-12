@@ -19,7 +19,7 @@
     padding: 0 14px;
     line-height: 38px;
     text-decoration: none;
-    background-color: white;
+    background-color: #466efd;
     border: 1px solid #DDD;
     border-left-width: 1;
     height: 45px;
@@ -43,3 +43,12 @@
   margin: 0;
   padding: 0;
 }
+
+#id_copyright {
+  color:white; 
+  margin: 0 20px 0 0;
+}
+a { 
+  text-decoration: none;
+  color: grey;
+ } 

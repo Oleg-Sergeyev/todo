@@ -12,29 +12,7 @@ div class = 'main-container mb-3' style ='margin: 5px; padding: 5px; padding-bot
     b =@start_date.strftime("%d-%m-%Y, %H:%M")
     b  - 
     b =@final_date.strftime("%d-%m-%Y, %H:%M")
-  div id = 'table_view' class = 'mb-3' style ='margin: 10px;'
-    table.table.table-striped class ='table table-striped' style ='margin: 5px;'
-      thead
-        tr
-          th N
-          th Пользователь
-          th Задание 
-          th Дата создания
-          th Статус
-          th Подзадания 
-          th Изменить
-          th Удалить
-      tbody
-        - @events.order(created_at: :asc).each_with_index do |event, index|
-          tr
-            td = (index + 1) + (cookies[:rows_count].to_i * @events.current_page) - cookies[:rows_count].to_i
-            td = @users.find(event.user_id).name
-            td = link_to event.name, event
-            td = event.created_at.strftime("%d-%m-%Y, %H:%M")
-            td = event.done
-            td = event.items.count
-            td = link_to 'Edit', edit_event_path(event)
-            td = link_to 'Destroy', event, data: { confirm: 'Are you sure?' }, method: :delete
+  == render 'table_events'
   div id = 'date_view' class = 'mb-3' style ='margin-left: 15px;'
     = link_to 'Создать новое задание', new_event_path, class: 'btn btn-primary'
   div id = 'paginate' class = 'mb-1' style ='margin-left: 15px;'

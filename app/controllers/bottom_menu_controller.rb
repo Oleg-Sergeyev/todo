@@ -1,0 +1,2 @@
+class BottomMenuController < ApplicationController
+end

@@ -1,0 +1,2 @@
+class TopMenuController < ApplicationController
+end

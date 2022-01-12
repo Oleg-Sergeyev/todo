@@ -3,8 +3,9 @@
 # class EventsController
 class EventsController < ApplicationController
   before_action :set_event, only: %i[show edit update destroy]
+  before_action :authenticate_user!
+  
   @rows_count = 5
-
   def index
     default_cookies(@rows_count) unless cookies[:start_date] || cookies[:final_date]
 

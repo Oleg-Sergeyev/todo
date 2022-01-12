@@ -1,5 +1,12 @@
 # frozen_string_literal: true
 
 class ApplicationController < ActionController::Base
-  http_basic_authenticate_with name: 'prog', password: 'Fresh-Site'
+  #http_basic_authenticate_with name: 'prog', password: 'Fresh-Site'
+  before_action :devise_permit_params, if: :devise_controller?
+
+  private
+
+  def devise_permit_params
+    devise_parameter_sanitizer.permit(:sign_up, keys: [:name])
+  end
 end
