@@ -1,8 +1,10 @@
 ru:
   label:
-    log_in: Вход
+    log_in: Авторизация
     log_out: Выход
+    come_in: Войти
     hello: Привет, %s
+    edit_profile: Изменить данные
     registration: Регистрация
   activerecord:
     errors:

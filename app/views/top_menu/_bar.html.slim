@@ -19,15 +19,20 @@ navbar class = "navbar navbar-expand-lg navbar-dark bg-primary"
                  button.btn.btn-primary.mb-2 type="submit" Submit
        ul.nav.navbar-nav.navbar-right
         - if user_signed_in?
-         li.dropdown
-           a.dropdownMenuLink.btn.btn-secondary.dropdown-toggle aria-expanded="false" aria-haspopup="true" data-toggle="dropdown" href="#" role="button" 
-              | Dropdown link
-              .dropdown-menu aria-labelledby="dropdownMenuLink" 
-                a.dropdown-item href="#"  Action
-                a.dropdown-item href="#"  Another action
-                a.dropdown-item href="#"  Something else here
-        - else 
-          li.navbar-item
-            = link_to t('label.log_in'), new_user_session_path, class: "nav-link"
-          li.navbar-item
-            = link_to t('label.registration'), new_user_registration_path, class: "nav-link"
+         li.nav-item.dropdown
+          a#navbarDropdown.nav-link.dropdown-toggle aria-expanded="false" data-bs-toggle="dropdown" href="#" role="button" 
+            = current_user.name
+          ul.dropdown-menu aria-labelledby="navbarDropdown" 
+            li
+              = link_to t('label.edit_profile'), edit_user_registration_path
+            li
+              = link_to t('label.log_out'), destroy_user_session_path, method: :delete
+        - else
+         li.nav-item.dropdown
+          a#navbarDropdown.nav-link.dropdown-toggle aria-expanded="false" data-bs-toggle="dropdown" href="#" role="button" 
+            = t('label.come_in')
+          ul.dropdown-menu aria-labelledby="navbarDropdown" 
+            li
+              = link_to t('label.log_in'), new_user_session_path, class: "nav-link", style:"color:black;"
+            li
+              = link_to t('label.registration'), new_user_registration_path, class: "nav-link", style:"color:black;"

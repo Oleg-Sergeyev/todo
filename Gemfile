@@ -8,7 +8,7 @@ ruby '3.0.2'
 #gem 'activeadmin'
 #gem 'arctic_admin'
 gem 'bcrypt'
-gem 'bootstrap-sass'
+#gem 'bootstrap-sass'
 gem 'cancancan'
 gem 'devise'
 gem 'draper'
@@ -25,6 +25,7 @@ gem 'sass-rails', '>= 6'
 gem 'jquery-turbolinks'
 gem 'webpacker', '~> 5.0'
 gem 'devise-i18n'
+gem 'bootstrap', '~> 5.0.2'
 
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.4', require: false
