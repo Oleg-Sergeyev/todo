@@ -1,9 +1,9 @@
 # Additional translations at https://github.com/heartcombo/devise/wiki/I18n
 
-en:
+ru:
   devise:
     label:
-      name_role: "Permissions"
+      name_role: "Права"
     confirmations:
       confirmed: "Your email address has been successfully confirmed."
       send_instructions: "You will receive an email with instructions for how to confirm your email address in a few minutes."

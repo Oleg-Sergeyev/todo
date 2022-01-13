@@ -6,6 +6,7 @@ ru:
     hello: Привет, %s
     edit_profile: Изменить данные
     registration: Регистрация
+    name_role: Права
   activerecord:
     errors:
       messages:
@@ -21,4 +22,3 @@ ru:
           password_confirmation: Подтверждение
           email:                 Email
           name:                  Имя пользователя
-          role_code:             Права

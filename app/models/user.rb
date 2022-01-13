@@ -34,12 +34,6 @@ class User < ApplicationRecord
 
   has_one :seos, as: :promoted
 
-  def role_code
-    Role.find_each do |role|
-      return role.code if role_id == role.id
-    end
-  end
-
   Role.find_each do |role|
     define_method "#{role.code}?" do
       role_id == role.id
