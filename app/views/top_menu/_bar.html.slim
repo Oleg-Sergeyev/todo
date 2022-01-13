@@ -1,3 +1,4 @@
+= stylesheet_link_tag 'layouts'
 navbar class = "navbar navbar-expand-lg navbar-dark bg-primary"
   .container-fluid
      .collapse.navbar-collapse.justify-content-between
@@ -18,10 +19,13 @@ navbar class = "navbar navbar-expand-lg navbar-dark bg-primary"
                  button.btn.btn-primary.mb-2 type="submit" Submit
        ul.nav.navbar-nav.navbar-right
         - if user_signed_in?
-          li.navbar-item
-            span.nav-link #{current_user.email}
-          li.navbar-item
-          = link_to t('label.log_out'), destroy_user_session_path, method: :delete, class: "nav-link"
+         li.dropdown
+           a.dropdownMenuLink.btn.btn-secondary.dropdown-toggle aria-expanded="false" aria-haspopup="true" data-toggle="dropdown" href="#" role="button" 
+              | Dropdown link
+              .dropdown-menu aria-labelledby="dropdownMenuLink" 
+                a.dropdown-item href="#"  Action
+                a.dropdown-item href="#"  Another action
+                a.dropdown-item href="#"  Something else here
         - else 
           li.navbar-item
             = link_to t('label.log_in'), new_user_session_path, class: "nav-link"

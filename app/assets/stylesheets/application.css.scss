@@ -10,45 +10,7 @@
  * files in this directory. Styles in this file should be added after the last require_* statement.
  * It is generally better to create a new file per style scope.
  *
- *= require_tree .
- *= require_self
  */
-
- .pagination a, .pagination span.current, .pagination span.gap {
-    float: left;
-    padding: 0 14px;
-    line-height: 38px;
-    text-decoration: none;
-    background-color: #466efd;
-    border: 1px solid #DDD;
-    border-left-width: 1;
-    height: 45px;
-}
-
-.pagination .page.current {
-  background-color: #466efd;
-}
-
-#save_new_event_btn{
-  width: fit-content;
-}
-
-.body{
-  background-color: white;
-  height: 100%;
-}
-
-.container{
-  max-width: 100%;
-  margin: 0;
-  padding: 0;
-}
-
-#id_copyright {
-  color:white; 
-  margin: 0 20px 0 0;
-}
-a { 
-  text-decoration: none;
-  color: grey;
- } 
+ @import "bootstrap-sprockets";
+ /*@import "bootstrap";*/
+ @import "bootstrap/scss/bootstrap";
