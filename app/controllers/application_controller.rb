@@ -2,11 +2,12 @@
 
 class ApplicationController < ActionController::Base
   #http_basic_authenticate_with name: 'prog', password: 'Fresh-Site'
-  before_action :devise_permit_params, if: :devise_controller?
+  include Pundit
+  before_action :configure_permitted_parameters, if: :devise_controller?
 
   private
 
-  def devise_permit_params
+  def configure_permitted_parameters
     devise_parameter_sanitizer.permit(:sign_up, keys: [:name])
   end
 end

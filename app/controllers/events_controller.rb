@@ -4,15 +4,28 @@
 class EventsController < ApplicationController
   before_action :set_event, only: %i[show edit update destroy]
   before_action :authenticate_user!
-  
+
+  def edit
+    authorize @event
+  end
+
+  def update
+    authorize @event
+  end
+
+  def destroy
+    authorize @event
+  end
+
   @rows_count = 5
+
   def index
     default_cookies(@rows_count) unless cookies[:start_date] || cookies[:final_date]
 
     @start_date = cookies[:start_date].to_time
     @final_date = cookies[:final_date].to_time
     @users = User.includes(:events)
-    @events = TimeInterval.new([@start_date, @final_date], Event, :items)
+    @events = TimeInterval.new([@start_date, @final_date], policy_scope(Event), :items)
                           .journal[:rows].page(params[:page]).per(cookies[:rows_count])
   end
 
@@ -43,7 +56,7 @@ class EventsController < ApplicationController
     if %i[start_date final_date].all? { |s| event_params.key? s }
       render_interval_query(event_params[:rows_count], event_params[:start_date], event_params[:final_date])
     else
-      @event = Event.new(event_params.merge(user: User.all.sample))
+      @event = policy_scope(Event).new(event_params.merge(user: User.all.sample))
       respond_to do |format|
         if @event.save
           format.html { redirect_to event_url(@event), notice: 'Event was successfully created.' }
@@ -95,7 +108,7 @@ class EventsController < ApplicationController
     cookies.permanent[:rows_count] = rows_count
     @rows_count = rows_count
     @users = User.includes(:events)
-    data = TimeInterval.new([start_date, final_date], Event, :items).journal
+    data = TimeInterval.new([start_date, final_date], policy_scope(Event), :items).journal
     @events = data[:rows].page(params[:page]).per(@rows_count)
     @start_date = data[:start_date]
     @final_date = data[:final_date]

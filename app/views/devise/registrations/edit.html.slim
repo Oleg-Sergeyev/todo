@@ -2,7 +2,12 @@ h2
   | Edit 
   = resource_name.to_s.humanize
 = form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f|
+  - def role_code; current_user.role.code; end 
   = render "devise/shared/error_messages", resource: resource
+  .field
+    = f.label :role_code
+  .field
+    = f.select(:role_select, [['admin'], ['default']], { selected: :role_code })
   .field
     = f.label :email
     br
