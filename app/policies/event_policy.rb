@@ -1,8 +1,9 @@
+
 class EventPolicy < ApplicationPolicy
 
   class Scope < Scope
     def resolve
-      user.admin? ? scope.all : scope.where(user: user)
+      EventsFilter.new(scope, user).data_scope
     end
   end
 

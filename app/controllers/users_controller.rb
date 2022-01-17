@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# class UsersController
 class UsersController < ApplicationController
   before_action :set_user, only: %i[show edit update destroy]
   before_action :authenticate_user!
@@ -14,13 +15,11 @@ class UsersController < ApplicationController
   end
 
   def edit
-   
     @user = User.find(params[:id])
     authorize @user
   end
 
   def update
-    
     @user = User.find(params[:id])
     authorize @user
     if current_user == @user && current_user.role_id != user_params[:role_id]
@@ -28,20 +27,6 @@ class UsersController < ApplicationController
       render :show
       return nil
     end
-    # if current_user.admin? 
-    #   if user_params[:role_id] != current_user.role_id
-    #   @error = 'Impossible to change role!'
-    #   render :show
-    #   return nil
-    # end
-    # if @user.update_attributes(user_params)
-    #   # Handle a successful update.
-    # else
-    #   render 'edit'
-    # end
-    #return if current_user.default?
-    
-    Rails.logger.info "*************************#{user_params}********************************"
     respond_to do |format|
       if @user.update(user_params)
         format.html { redirect_to user_url(@user), notice: 'User was successfully updated.' }
@@ -51,7 +36,6 @@ class UsersController < ApplicationController
         format.json { render json: @user.errors, status: :unprocessable_entity }
       end
     end
-
   end
 
   def destroy
@@ -70,12 +54,13 @@ class UsersController < ApplicationController
   end
 
   private
-  
+
   def set_user
     @user = User.find(params[:id])
   end
 
   def user_params
-    params.require(:user).permit(:id, :role_id, :name, :email, :password_confirmation, :password, :current_passwor, :active)
+    params.require(:user).permit(:id, :role_id, :name, :email, :password_confirmation, :password, :current_passwor,
+                                 :active)
   end
 end
