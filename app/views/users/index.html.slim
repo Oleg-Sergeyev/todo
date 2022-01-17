@@ -1,0 +1,18 @@
+div id = 'table_users' class = 'mb-3' style ='margin: 10px;'
+    table.table.table-striped class ='table table-striped' style ='margin: 5px;'
+      thead
+        tr
+          th N
+          th Name
+          th Email 
+          th Satus
+          th Role
+      tbody
+        - @users.order(name: :asc).each_with_index do |user, index|
+          tr
+            td = (index + 1)
+            td = link_to user.name, edit_user_registration_path
+            td = user.email
+            td = user.active
+            td = Role.where(id: user.role_id).pluck(:code).join
+       

@@ -4,7 +4,7 @@ div class = "container mb-3" style = "width: fit-content;"
     .d-flex.justify-content-end
       = link_to 'Back', :back
     .form-group
-      = f.label "Роль"
+      = f.label :role
       = f.label @user.role.name, class:"form-control", placeholder:"Edit name", type:"text"    
     .form-group
       = f.label :name

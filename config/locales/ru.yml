@@ -6,7 +6,7 @@ ru:
     hello: Привет, %s
     edit_profile: Изменить данные
     registration: Регистрация
-    name_role: Права
+    role: Права
   activerecord:
     errors:
       messages:

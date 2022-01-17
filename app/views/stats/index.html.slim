@@ -16,7 +16,7 @@ div class = 'main-container mb-3' style ='margin: 5px; padding: 5px;'
           th Выполено  
           th Не выпол.
       tbody
-        - @users.each do |user|
+        - @stat_users.each do |user|
           tr
             td = user.id 
             td = user.name 

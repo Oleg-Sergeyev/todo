@@ -1,9 +1,16 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
+  
   root 'home#index'
-  devise_for :users
+  #devise_for :users
+  devise_for :users 
+  resources :users 
+  # devise_for :user, path_names: {
+  #   sign_in: 'login', sign_out: 'logout'
+  # }
   resources :events
+  #resources :users
   # get 'events/page/(:page(.:format))', to: 'events#index'
   get 'events/page', to: 'events#index'
   get 'stats', to: 'stats#index'

@@ -75,16 +75,16 @@ Seo.create! hash_seos
 #User.create!(name: 'admin@example.com', email: 'admin@example.com', password: 'password', password_confirmation: 'password') if Rails.env.development?
 hash_user =
   {
-    name: 'admin@example.com',
-    email: 'admin@example.com',
+    name: 'admin1@example.com',
+    email: 'admin1@example.com',
     role: admin_role,
     active: [true, false].sample,
     events_unffd_count: 0,
     events_ffd_count: 0,
     items_unffd_count: 0,
     items_ffd_count: 0,
-    password: 'password',
-    password_confirmation: 'password'
+    password: 'admin1@example.com',
+    password_confirmation: 'admin1@example.com'
   }
 
 User.create! hash_user

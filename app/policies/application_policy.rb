@@ -44,8 +44,10 @@ class ApplicationPolicy
 
     def resolve
       scope.all
+      # devise_for :user, path_names: {
+      #   sign_in: 'login', sign_out: 'logout'
+      # }
     end
-
     private
 
     attr_reader :user, :scope
