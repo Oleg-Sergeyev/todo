@@ -6,6 +6,7 @@ class UsersController < ApplicationController
 
   def index
     @users = policy_scope(User) # .page(params[:page]).per(15)
+    @error = 'ooo'
   end
 
   def show
@@ -13,17 +14,21 @@ class UsersController < ApplicationController
   end
 
   def edit
+   
     @user = User.find(params[:id])
+    authorize @user
   end
 
   def update
+    
     @user = User.find(params[:id])
+    authorize @user
     # if @user.update_attributes(user_params)
     #   # Handle a successful update.
     # else
     #   render 'edit'
     # end
-    return if @user.default?
+    #return if current_user.default?
     
     Rails.logger.info "*************************#{user_params}********************************"
     respond_to do |format|
@@ -39,6 +44,12 @@ class UsersController < ApplicationController
   end
 
   def destroy
+    authorize @user
+    if current_user.admin? && @user.admin?
+      @error = 'Impossible to delete!'
+      render :show
+      return nil
+    end
     @user.destroy
 
     respond_to do |format|
@@ -54,6 +65,6 @@ class UsersController < ApplicationController
   end
 
   def user_params
-    params.require(:user).permit(:id, :commit, :name, :email, :password_confirmation, :password, :current_passwor )
+    params.require(:user).permit(:id, :commit, :name, :email, :password_confirmation, :password, :current_passwor, :active)
   end
 end

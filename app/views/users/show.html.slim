@@ -1,25 +1,19 @@
 div class = "container mb-3" style = "width: fit-content;"
   = form_for(@user, html: { method: :put }) do |f|
+    .d-flex.justify-content-center style="color:red;"
+      = @error
     .d-flex.justify-content-end
       = link_to 'Back', :users
     .form-group
-      = f.label :role
-      = f.label @user.role.name, class:"form-control", placeholder:"Edit name", type:"text"    
+      = f.label :role 
+      = "  #{@user.role.name}"   
     .form-group
       = f.label :name
-      = f.text_field :name, class:"form-control", placeholder:"Edit name", type:"text"
+      = "  #{@user.name}"
     .form-group
       = f.label :email
-      = f.email_field :email, autofocus: true, autocomplete: "email", class:"form-control", placeholder:"Email address", type:"email"
+      = "  #{@user.email}"
     .form-group
-      = f.label :password
-      = f.password_field :password, autocomplete: "new-password", class:"form-control", placeholder:"New password",type:"password"
-    .form-group
-      = f.label :password_confirmation
-      = f.password_field :password_confirmation, autocomplete: "new-password", class:"form-control", placeholder:"Confirm password",type:"password"
-    .form-group
-      = f.label :current_password
-      = f.password_field :current_password, autocomplete: "current-password", class:"form-control", placeholder:"Current password",type:"password"
-    .form-check
-      = f.submit "Update", class: 'btn btn-primary', method: :update, style: 'margin: 5px'
+      = f.label :active
+      = f.check_box :active, {checked: @user.active, disabled: true}  
      

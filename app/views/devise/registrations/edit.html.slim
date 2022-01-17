@@ -1,10 +1,10 @@
 div class = "container mb-3" style = "width: fit-content;"
   = form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f|
     = render "devise/shared/error_messages", resource: resource
-    .d-flex.justify-content-end
-      = link_to 'Back', :back
+    .d-flex.justify-content-between
+      = link_to 'Back', :back, class:'link-primary', style:'margin: 5px'
+      = link_to 'Delete',  registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete, class:"link-danger", style:'margin: 5px'
     .form-group
-      = f.label :role
       = f.label @user.role.name, class:"form-control", placeholder:"Edit name", type:"text"    
     .form-group
       = f.label :name
@@ -26,6 +26,5 @@ div class = "container mb-3" style = "width: fit-content;"
     .form-group
       = f.label :current_password
       = f.password_field :current_password, autocomplete: "current-password", class:"form-control", placeholder:"Current password",type:"password"
-    .form-check
+    .form-check class="form-check d-flex justify-content-end"
       = f.submit "Update", data: { confirm: "Are you sure?" }, class: 'btn btn-primary', style: 'margin: 5px'
-      = button_to "Delete", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete, class: 'btn btn-primary', style: 'margin: 5px'

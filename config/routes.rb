@@ -4,7 +4,8 @@ Rails.application.routes.draw do
   
   root 'home#index'
   #devise_for :users
-  devise_for :users, :path_prefix => 'my'
+  devise_for :users #, :path_prefix => 'my'
+  match 'users/:id' => 'users#destroy', :via => :delete, :as => :admin_destroy_user
   resources :users 
   # devise_for :user, path_names: {
   #   sign_in: 'login', sign_out: 'logout'
