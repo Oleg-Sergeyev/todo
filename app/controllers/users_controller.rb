@@ -23,6 +23,17 @@ class UsersController < ApplicationController
     
     @user = User.find(params[:id])
     authorize @user
+    if current_user == @user && current_user.role_id != user_params[:role_id]
+      @error = 'Impossible to change role!'
+      render :show
+      return nil
+    end
+    # if current_user.admin? 
+    #   if user_params[:role_id] != current_user.role_id
+    #   @error = 'Impossible to change role!'
+    #   render :show
+    #   return nil
+    # end
     # if @user.update_attributes(user_params)
     #   # Handle a successful update.
     # else
