@@ -23,6 +23,8 @@ class UsersController < ApplicationController
     # else
     #   render 'edit'
     # end
+    return if @user.default?
+    
     Rails.logger.info "*************************#{user_params}********************************"
     respond_to do |format|
       if @user.update(user_params)
@@ -36,14 +38,14 @@ class UsersController < ApplicationController
 
   end
 
-  # def destroy
-  #   @user.destroy
+  def destroy
+    @user.destroy
 
-  #   respond_to do |format|
-  #     format.html { redirect_to users_url, notice: 'User was successfully destroyed.' }
-  #     format.json { head :no_content }
-  #   end
-  # end
+    respond_to do |format|
+      format.html { redirect_to users_url, notice: 'User was successfully destroyed.' }
+      format.json { head :no_content }
+    end
+  end
 
   private
   
