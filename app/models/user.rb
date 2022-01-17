@@ -12,8 +12,6 @@ class User < ApplicationRecord
   before_validation :set_role, on: %i[create update]
   before_validation :normalize_email, if: proc { |u| u.email }
 
-  devise :database_authenticatable,
-         :recoverable, :rememberable, :validatable
   validates :name, presence: true
   validates :name, length: { maximum: 30, minimum: 2 }
   validates :name, uniqueness: true

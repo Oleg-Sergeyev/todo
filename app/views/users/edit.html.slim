@@ -1,22 +1,16 @@
 div class = "container mb-3" style = "width: fit-content;"
-  = form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f|
-    = render "devise/shared/error_messages", resource: resource
+  = form_for(@user, html: { method: :put }) do |f|
     .d-flex.justify-content-end
       = link_to 'Back', :back
     .form-group
       = f.label :role
-      = f.label @user.role.name, class:"form-control", placeholder:"Edit name", type:"text"    
+      = f.select(:role_select, [['Администратор'], ['Пользователь']], {selected: @user.role.name}) 
     .form-group
       = f.label :name
       = f.text_field :name, class:"form-control", placeholder:"Edit name", type:"text"
     .form-group
       = f.label :email
       = f.email_field :email, autofocus: true, autocomplete: "email", class:"form-control", placeholder:"Email address", type:"email"
-          - if devise_mapping.confirmable? && resource.pending_reconfirmation?
-            div
-              | Currently waiting confirmation for: 
-              = resource.unconfirmed_email
-      small#emailHelp.form-text.text-muted We'll never share your email with anyone else.
     .form-group
       = f.label :password
       = f.password_field :password, autocomplete: "new-password", class:"form-control", placeholder:"New password",type:"password"
@@ -28,4 +22,4 @@ div class = "container mb-3" style = "width: fit-content;"
       = f.password_field :current_password, autocomplete: "current-password", class:"form-control", placeholder:"Current password",type:"password"
     .form-check
       = f.submit "Update", data: { confirm: "Are you sure?" }, class: 'btn btn-primary', style: 'margin: 5px'
-      = button_to "Delete", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete, class: 'btn btn-primary', style: 'margin: 5px'
+     
