@@ -24,7 +24,7 @@ class TimeInterval
             else
               @dates.second.end_of_day
             end
-    { rows: @object.where(created_at: start_date...final_date).includes(@associated_object), start_date: start,
+    { rows: @object.where(created_at: start...final).includes(@associated_object), start_date: start,
       final_date: final }
   end
 end
