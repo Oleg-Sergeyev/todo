@@ -7,7 +7,6 @@ class UsersController < ApplicationController
 
   def index
     @users = policy_scope(User) # .page(params[:page]).per(15)
-    @error = 'ooo'
   end
 
   def show
@@ -23,7 +22,7 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     authorize @user
     if current_user == @user && current_user.role_id != user_params[:role_id]
-      @error = 'Impossible to change role!'
+      @user.errors.add(:name, message: 'Impossible to update!')
       render :show
       return nil
     end
@@ -41,7 +40,7 @@ class UsersController < ApplicationController
   def destroy
     authorize @user
     if current_user.admin? && @user.admin?
-      @error = 'Impossible to delete!'
+      @user.errors.add(:name, message: 'Impossible to delete!')
       render :show
       return nil
     end

@@ -110,7 +110,6 @@ class EventsController < ApplicationController
     cookies.permanent[:rows_count] = rows_count
     @rows_count = rows_count
     @users = User.includes(:events)
-    Rails.logger.info "++++++++++++++++++++++#{start_date} --- #{final_date}++++++++++++++++++++++++++++"
     data = TimeInterval.new([start_date, final_date], policy_scope(Event), :items).journal
     @events = data[:rows].page(params[:page]).per(@rows_count)
     @start_date = data[:start_date]

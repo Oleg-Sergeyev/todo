@@ -38,6 +38,10 @@ class User < ApplicationRecord
      end
   end
   
+  def admin?
+    Role.where(code: 'admin')&.ids.include? role_id
+  end
+  
   private
 
   def normalize_email

@@ -1,7 +1,7 @@
 div class = "container mb-3" style = "width: fit-content;"
   = form_for(@user, html: { method: :put }) do |f|
     .d-flex.justify-content-center style="color:red;"
-      = @error
+      = @user.errors.messages[:name].join
     .d-flex.justify-content-end
       = link_to 'Back', :users
     .form-group
