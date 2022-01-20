@@ -16,6 +16,8 @@ div id = 'table_users' class = 'mb-3' style ='margin: 10px;'
         td = "V" if user.active == true
         td = user.role.name
         td = user.created_at.strftime("%d-%m-%Y, %H:%M")
+div id = 'paginate' class = 'mb-1' style ='margin-left: 15px;'
+  = paginate @admin_users
   /      td = link_to 'Destroy', admin_user_path(user), data: { confirm: 'Are you sure?' }, method: :delete
 
 

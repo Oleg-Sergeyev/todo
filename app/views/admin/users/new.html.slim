@@ -7,7 +7,8 @@ h1 = t("New user")
 div class = "container mb-3" style = "width: fit-content;"
   - fake_data = FFaker::Internet.safe_email
   = form_for([:admin, @admin_user], html: { method: :post }) do |f|
-    .d-flex.justify-content-end
+    .d-flex.justify-content-between
+      = link_to 'Generate new user', new_admin_user_path
       = link_to 'Back', :back, class:'link-primary', style:'margin: 5px'
     .form-group
       = f.label :role
