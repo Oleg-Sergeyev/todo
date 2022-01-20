@@ -1,0 +1,33 @@
+/== render 'form'
+
+/=> link_to 'Show', @admin_user
+/'|
+/=< link_to 'Back', admin_users_path
+
+div class = "container mb-3" style = "width: fit-content;"
+  = form_for(@admin_user, html: { method: :put }) do |f|
+    .d-flex.justify-content-between
+      = link_to 'Back', admin_users_path, class:'link-primary', style:'margin: 5px'
+      = link_to "Destroy", admin_destroy_user_path(@admin_user), method: :delete, data: { confirm: "You sure?" }, class:"link-danger", style:'margin: 5px'
+    .form-group
+      = f.select(:role_id, Role.all.collect {|u| [u.name, u.id]}, :prompt => 'Select')
+    .form-group
+      = f.label :name
+      = f.text_field :name, class:"form-control", placeholder:"Edit name", type:"text"
+    .form-group
+      = f.label :email
+      = f.email_field :email, autofocus: true, autocomplete: "email", class:"form-control", placeholder:"Email address", type:"email"
+    .form-group
+      = f.label :active
+      = f.check_box :active, {checked: @admin_user.active}
+    .form-check class="form-check d-flex justify-content-end"
+      = f.submit "Update", data: { confirm: "Are you sure?" }, class: 'btn btn-primary', style: 'margin: 5px'  
+  = form_for(@admin_user, html: { method: :put }) do |f|          
+    .form-group
+      = f.label :password
+      = f.password_field :password, autocomplete: "new-password", class:"form-control", placeholder:"New password",type:"password"
+    .form-group
+      = f.label :password_confirmation
+      = f.password_field :password_confirmation, autocomplete: "new-password", class:"form-control", placeholder:"Confirm password",type:"password"
+    .form-check class="form-check d-flex justify-content-end"
+      = f.submit "Change pass", data: { confirm: "Are you sure?" }, class: 'btn btn-primary', style: 'margin: 5px'

@@ -1,0 +1,21 @@
+div id = 'table_users' class = 'mb-3' style ='margin: 10px;'
+  table.table.table-striped class ='table table-striped' style ='margin: 5px;'
+    tr
+      th = t("№")
+      th = t("Name")
+      th = t("Email")
+      th = t("Status")
+      th = t("Role")
+      th = t("Created")
+    tbody
+    - @admin_users.each_with_index do |user, index|
+      tr
+        td = (index + 1)
+        td = link_to user.name, admin_user_path(user)
+        td = user.email
+        td = "V" if user.active == true
+        td = user.role.name
+        td = user.created_at.strftime("%d-%m-%Y, %H:%M")
+  /      td = link_to 'Destroy', admin_user_path(user), data: { confirm: 'Are you sure?' }, method: :delete
+
+

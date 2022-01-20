@@ -4,15 +4,10 @@ navbar class = "navbar navbar-expand-lg navbar-dark bg-primary"
      .collapse.navbar-collapse.justify-content-between
        ul.nav.navbar-nav.navbar-left.mr-auto 
          li.navbar-item
-         = link_to_unless_current(t("Home"), { controller: "/home", action: "index" }, class: "nav-link"){ link_to(t("Home"), { controller: "home", action: "index" }, class: "nav-link disabled") }
+         = link_to_unless_current( t("Users"), { controller: "/admin/users", action: "index" }, class: "nav-link"){ link_to( t("Users"), { controller: "/admin/users", action: "index" }, class: "nav-link disabled") }
          li.navbar-item
-         = link_to_unless_current(t("Events"), { controller: "/events", action: "index" }, class: "nav-link") { link_to(t("Events"), { controller: "events", action: "index" }, class: "nav-link disabled") } 
-         li.navbar-item
-         = link_to_unless_current( t("Stats"), { controller: "/stats", action: "index" }, class: "nav-link"){ link_to( t("Stats"), { controller: "stats", action: "index" }, class: "nav-link disabled") }
-         - if current_user && current_user.admin?
-           li.navbar-item
-           = link_to_unless_current( t("Users"), { controller: "/users", action: "index" }, class: "nav-link"){ link_to( t("Users"), { controller: "users", action: "index" }, class: "nav-link disabled") }
-     
+         = link_to t("New user"), new_admin_user_path, class: "nav-link"
+       /* = link_to_unless_current( t("New user"), new_admin_user_path, class: "nav-link"){ link_to( t("New user"), new_admin_user_path, class: "nav-link disabled") }
        ul.nav.navbar-nav.navbar-center.mr-auto
          li.navbar-item
            form.form-inline role="search"
@@ -27,9 +22,6 @@ navbar class = "navbar navbar-expand-lg navbar-dark bg-primary"
           a#navbarDropdown.nav-link.dropdown-toggle aria-expanded="false" data-bs-toggle="dropdown" href="#" role="button" 
             = current_user.name
           ul.dropdown-menu aria-labelledby="navbarDropdown" 
-            - if current_user.default?
-              li
-                = link_to t('label.edit_profile'), edit_user_registration_path
             li
               = link_to t('label.log_out'), destroy_user_session_path, method: :delete
         - else

@@ -1,14 +1,14 @@
 div class = 'main-container mb-3' style ='margin: 5px; padding: 5px;'
   div style ='margin-left: 15px;'
-    h1 Статистика
+    h1 = t("Stats")
   div id = 'table_view' class = 'mb-3' style ='margin: 10px;'
     table.table.table-striped
       thead 
         tr
-          th Ключ
-          th Имя 
-          th Эл.почта 
-          th Статус
+          th = t("№")
+          th = t("Name") 
+          th = t("Email") 
+          th = t("Status")
           th Задания
           th Выполнено  
           th Не выпол.
@@ -29,5 +29,5 @@ div class = 'main-container mb-3' style ='margin: 5px; padding: 5px;'
             td = user.items_ffd_count
             td = user.items_unffd_count
   div class = 'mb-3' style = 'margin-left: 5px;'
-    = link_to 'Задания', events_path, class: 'btn btn-primary', style: 'margin: 5px'
+    = link_to t('Events'), events_path, class: 'btn btn-primary', style: 'margin: 5px'
     

@@ -1,0 +1,31 @@
+h1 = t("New user")
+
+/== render 'form'
+
+/= link_to 'Back', admin_users_path
+
+div class = "container mb-3" style = "width: fit-content;"
+  - fake_data = FFaker::Internet.safe_email
+  = form_for([:admin, @admin_user], html: { method: :post }) do |f|
+    .d-flex.justify-content-end
+      = link_to 'Back', :back, class:'link-primary', style:'margin: 5px'
+    .form-group
+      = f.label :role
+      = f.select(:role_id, Role.all.collect {|u| [u.name, u.id]}, :prompt => 'Select')
+    .form-group
+      = f.label :name
+      = f.text_field :name, value: fake_data, class:"form-control", placeholder:"Edit name", type:"text"
+    .form-group
+      = f.label :email
+      = f.email_field :email, value: fake_data, autofocus: true, autocomplete: "email", class:"form-control", placeholder:"Email address", type:"email"
+    .form-group
+      = f.label :active
+      = f.check_box :active, {checked: rand(2) == 1 ? true : false}
+    .form-group
+      = f.label :password
+      = f.password_field :password, value: fake_data, autocomplete: "new-password", class:"form-control", placeholder:"New password",type:"password"
+    .form-group
+      = f.label :password_confirmation
+      = f.password_field :password_confirmation, value: fake_data, autocomplete: "new-password", class:"form-control", placeholder:"Confirm password",type:"password"
+    .form-check class="form-check d-flex justify-content-end"
+      = f.submit "Save", data: { confirm: "Are you sure?" }, class: 'btn btn-primary', style: 'margin: 5px'
