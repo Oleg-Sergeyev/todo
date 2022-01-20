@@ -6,7 +6,9 @@ class Admin::UsersController < Admin::ApplicationController
   # GET /admin/users or /admin/users.json
   def index
     authorize [:admin, User]
-    @admin_users = policy_scope(User, policy_scope_class: Admin::UserPolicy::Scope).all.page(params[:page]).per(5)
+    admin_users = policy_scope(User, policy_scope_class: Admin::UserPolicy::Scope)
+    sql = '(SELECT code FROM roles WHERE id = users.role_id) as code, id, name, email, active, role_id, created_at'
+    @admin_users = admin_users.select(sql).page(params[:page]).per(5)
   end
 
   # GET /admin/users/1 or /admin/users/1.json

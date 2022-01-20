@@ -6,7 +6,10 @@ class UsersController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    @users = policy_scope(User).page(params[:page]).per(5)
+    #@users = policy_scope(User)#.page(params[:page]).per(5)
+    users = policy_scope(User, policy_scope_class: Admin::UserPolicy::Scope)
+    sql = '(SELECT code FROM roles WHERE id = users.role_id) as code, id, name, email, active, role_id, created_at'
+    @users = users.select(sql).page(params[:page]).per(20)
   end
 
   def show

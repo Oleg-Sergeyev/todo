@@ -14,7 +14,7 @@ div id = 'table_users' class = 'mb-3' style ='margin: 10px;'
         td = link_to user.name, admin_user_path(user)
         td = user.email
         td = "V" if user.active == true
-        td = user.role.name
+        td = user.code
         td = user.created_at.strftime("%d-%m-%Y, %H:%M")
 div id = 'paginate' class = 'mb-1' style ='margin-left: 15px;'
   = paginate @admin_users
