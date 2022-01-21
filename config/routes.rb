@@ -8,7 +8,7 @@ Rails.application.routes.draw do
   end
   root 'home#index'
   #devise_for :users
-  devise_for :users #, :path_prefix => 'my'
+  devise_for :users #, :path_prefix => 'admin'
   match 'users/:id' => 'admin/users#destroy', via: :delete, as: :admin_destroy_user
   match 'users/:id' => 'admin/users#create', via: :create, as: :admin_create_user
   resources :users
