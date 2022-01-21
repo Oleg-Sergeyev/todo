@@ -1,5 +1,5 @@
 = stylesheet_link_tag 'layouts'
-navbar class = "navbar navbar-expand-lg navbar-dark bg-primary"
+navbar class = "navbar navbar-expand-lg navbar-dark bg-dark"
   .container-fluid
      .collapse.navbar-collapse.justify-content-between
        ul.nav.navbar-nav.navbar-left.mr-auto 
@@ -11,14 +11,8 @@ navbar class = "navbar navbar-expand-lg navbar-dark bg-primary"
          = link_to_unless_current( t("Roles"), { controller: "/admin/roles", action: "index" }, class: "nav-link"){ link_to( t("Roles"), { controller: "/admin/roles", action: "index" }, class: "nav-link disabled") }
          li.navbar-item
          = link_to_unless_current( t("New role"), new_admin_role_path, class: "nav-link"){ link_to( t("New role"), new_admin_role_path, class: "nav-link disabled") }
-       ul.nav.navbar-nav.navbar-center.mr-auto
          li.navbar-item
-           form.form-inline role="search"
-             .form-group.row
-               .col
-                 input.form-control type="text" placeholder="Search"
-               .col  
-                 button.btn.btn-primary.mb-2 type="submit" Submit
+         = link_to_unless_current( t("Exit"), root_path, class: "nav-link"){ link_to( t("Exit"), root_path, class: "nav-link disabled") }
        ul.nav.navbar-nav.navbar-right
         - if user_signed_in?
          li.nav-item.dropdown

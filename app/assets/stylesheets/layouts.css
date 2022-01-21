@@ -10,7 +10,7 @@
 }
 
 .pagination .page.current {
-background-color: #466efd;
+ background-color: #466efd;
 }
 
 #save_new_event_btn{
@@ -41,4 +41,21 @@ color: grey;
   display: flex;
   justify-content: flex-start;
   flex-direction: row;
+}
+.admin_paginate, .pagination a, .pagination span.current, .pagination span.gap, .a{
+  float: left;
+  padding: 0 14px;
+  line-height: 38px;
+  text-decoration: none;
+  background-color: #212529;
+  border: 1px solid rgb(90, 90, 90);
+  border-left-width: 1;
+  height: 45px;
+  color:white;
+}
+.admin_paginate, .page-item.active .page-link {
+  z-index: 3;
+  color: #fff;
+  background-color:rgb(90, 90, 90);
+  border-color: gray;
 }

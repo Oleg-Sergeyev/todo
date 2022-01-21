@@ -9,7 +9,7 @@ div class = "container mb-3" style = "width: fit-content;"
   = form_for([:admin, @admin_user], html: { method: :post }) do |f|
     .d-flex.justify-content-between
       = link_to 'Generate new user', new_admin_user_path
-      = link_to 'Back', :back, class:'link-primary', style:'margin: 5px'
+      = link_to 'Back', :back, class:'link-dark', style:'margin: 5px'
     .form-group
       = f.label :role
       = f.select(:role_id, Role.all.collect {|u| [u.name, u.id]}, :prompt => 'Select')
@@ -29,4 +29,4 @@ div class = "container mb-3" style = "width: fit-content;"
       = f.label :password_confirmation
       = f.password_field :password_confirmation, value: fake_data, autocomplete: "new-password", class:"form-control", placeholder:"Confirm password",type:"password"
     .form-check class="form-check d-flex justify-content-end"
-      = f.submit "Save", data: { confirm: "Are you sure?" }, class: 'btn btn-primary', style: 'margin: 5px'
+      = f.submit "Save", data: { confirm: "Are you sure?" }, class: 'btn btn-dark', style: 'margin: 5px'
