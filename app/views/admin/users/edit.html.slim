@@ -22,7 +22,7 @@ div class = "container mb-3" style = "width: fit-content;"
       = f.check_box :active, {checked: @admin_user.active}
     .form-check class="form-check d-flex justify-content-end"
       = f.submit "Update", data: { confirm: "Are you sure?" }, class: 'btn btn-primary', style: 'margin: 5px'  
-  = form_for(@admin_user, html: { method: :put }) do |f|          
+  = form_for(@admin_user, html: { method: :put }, url: :back) do |f|          
     .form-group
       = f.label :password
       = f.password_field :password, autocomplete: "new-password", class:"form-control", placeholder:"New password",type:"password"
