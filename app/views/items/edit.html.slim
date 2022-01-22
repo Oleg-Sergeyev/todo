@@ -1,0 +1,4 @@
+h1 = t('Editing event_item')
+div class = "container mb-3" style = "width: fit-content;"
+  == render 'form'
+  = link_to t(:update), item_path(@item), method: :put, data: { confirm: "You sure?" }, class:"link-danger", style:'margin: 5px'

@@ -2,6 +2,10 @@
 
 Rails.application.routes.draw do
   
+  #get 'items/index'
+  resources :events do
+    resources :items
+  end
   namespace :admin do
     resources :roles
   end
@@ -19,6 +23,9 @@ Rails.application.routes.draw do
   match 'roles/:id' => 'admin/roles#destroy', via: :delete, as: :admin_destroy_role
   match 'roles/:id' => 'admin/roles#create', via: :create, as: :admin_create_role
   resources :roles
+
+  resources :items
+
   # devise_for :user, path_names: {
   #   sign_in: 'login', sign_out: 'logout'
   # }
