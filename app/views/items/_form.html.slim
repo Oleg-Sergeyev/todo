@@ -1,6 +1,6 @@
 div id = 'table_items' class = 'mb-3' style ='margin: 10px;'
-  = link_to @event.name, :back
-  = form_for (@item) do |f|
+  /= link_to @event.name, :back
+  = form_for(@item) do |f|
     table.table.table-striped class ='table table-striped' style ='margin: 5px;'
       thead
         tr
@@ -8,6 +8,7 @@ div id = 'table_items' class = 'mb-3' style ='margin: 10px;'
           th =t(:name)
           th =t(:done)
           th =t(:finished_at)
+          th =t(:update)
       tbody
         .field
           f.tr
@@ -15,4 +16,4 @@ div id = 'table_items' class = 'mb-3' style ='margin: 10px;'
             td = f.text_area :name, class: 'form-control form-control-sm'
             td = f.check_box :done, {checked: @item.done}
             td = @item.finished_at ? item.finished_at.strftime("%d-%m-%Y, %H:%M") : "no finished"
-           
+            td = f.submit 'Update', data: { confirm: "Are you sure?" }, class: 'btn btn-dark', style: 'margin: 5px'         
