@@ -5,7 +5,7 @@ div class = 'main-container mb-3' style ='margin: 5px; padding: 5px; padding-bot
     p
   div id = 'date' class = 'mb-3' style ='margin: 0 10px 0 15px;'
     = render 'form_journal_panel'
-  div id = 'paginate' class = 'mb-3' style ='margin-left: 15px;'
+  div id = 'paginate' class = 'events-paginate mb-3' style ='margin-left: 15px;'
     = paginate @events
   div id = 'date_view' class = 'mb-3' style ='margin-left: 15px;'
     b Выборка за период: 
@@ -15,5 +15,5 @@ div class = 'main-container mb-3' style ='margin: 5px; padding: 5px; padding-bot
   == render 'table_events'
   div id = 'date_view' class = 'mb-3' style ='margin-left: 15px;'
     = link_to 'Создать новое задание', new_event_path, class: 'btn btn-primary'
-  div id = 'paginate' class = 'mb-1' style ='margin-left: 15px;'
+  div id = 'paginate' class = 'events-paginate mb-1' style ='margin-left: 15px;'
     = paginate @events

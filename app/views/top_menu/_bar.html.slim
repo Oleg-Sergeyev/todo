@@ -26,7 +26,7 @@ navbar class = "navbar navbar-expand-lg navbar-dark bg-primary"
          li.nav-item.dropdown
           a#navbarDropdown.nav-link.dropdown-toggle aria-expanded="false" data-bs-toggle="dropdown" href="#" role="button" 
             = current_user.name
-          ul.dropdown-menu aria-labelledby="navbarDropdown" 
+          ul.dropdown-menu.dropdown-menu-end role="menu" aria-labelledby="navbarDropdown" 
             - if current_user.default?
               li
                 = link_to t('label.edit_profile'), edit_user_registration_path
@@ -36,7 +36,7 @@ navbar class = "navbar navbar-expand-lg navbar-dark bg-primary"
          li.nav-item.dropdown
           a#navbarDropdown.nav-link.dropdown-toggle aria-expanded="false" data-bs-toggle="dropdown" href="#" role="button" 
             = t('label.come_in')
-          ul.dropdown-menu aria-labelledby="navbarDropdown" 
+          ul.dropdown-menu.dropdown-menu-end aria-labelledby="navbarDropdown" 
             li
               = link_to t('label.log_in'), new_user_session_path, class: "nav-link", style:"color:black;"
             li
