@@ -8,6 +8,7 @@ class Admin::UsersController < Admin::ApplicationController
     authorize [:admin, User]
     admin_users = policy_scope(User, policy_scope_class: Admin::UserPolicy::Scope)
     sql = '(SELECT code FROM roles WHERE id = users.role_id) as code, id, name, email, active, role_id, created_at'
+    #Rails.logger.info "++++#{User.select(code: Role.where(id: :user_id).pluck(:code).first).all}+++"
     @admin_users = admin_users.select(sql).page(params[:page]).per(5)
   end
 

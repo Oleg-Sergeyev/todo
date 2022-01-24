@@ -14,6 +14,13 @@ Rails.application.routes.draw do
     resources :users
   end
   root 'home#index'
+
+  post :toggle, to: 'locales#toggle'
+
+  # scope '/:locale' do
+  #   get 'home', to: 'home#index'
+  # end
+  
   #devise_for :users
   devise_for :users #, :path_prefix => 'admin'
   match 'users/:id' => 'admin/users#destroy', via: :delete, as: :admin_destroy_user

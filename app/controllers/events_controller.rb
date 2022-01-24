@@ -21,7 +21,7 @@ class EventsController < ApplicationController
 
   def index
     default_cookies(@rows_count) unless cookies[:start_date] || cookies[:final_date]
-
+    I18n.locale = session.fetch(:locale, I18n.default_locale).to_sym
     @start_date = cookies[:start_date].to_time
     @final_date = cookies[:final_date].to_time
     @users = User.includes(:events)
@@ -41,7 +41,9 @@ class EventsController < ApplicationController
   end
 
   # GET /events/1 or /events/1.json
-  def show; end
+  def show
+    I18n.locale = session.fetch(:locale, I18n.default_locale).to_sym
+  end
 
   # GET /events/new
   def new
@@ -49,10 +51,13 @@ class EventsController < ApplicationController
   end
 
   # GET /events/1/edit
-  def edit; end
+  def edit
+    I18n.locale = session.fetch(:locale, I18n.default_locale).to_sym
+  end
 
   # POST /events or /events.json
   def create
+    I18n.locale = session.fetch(:locale, I18n.default_locale).to_sym
     if %i[start_date final_date].all? { |s| event_params.key? s }
       render_interval_query(event_params[:rows_count], event_params[:start_date], event_params[:final_date])
     else
@@ -72,6 +77,7 @@ class EventsController < ApplicationController
   # PATCH/PUT /events/1 or /events/1.json
   def update
     authorize @event
+    I18n.locale = session.fetch(:locale, I18n.default_locale).to_sym
     respond_to do |format|
       if @event.update(event_params)
         format.html { redirect_to event_url(@event), notice: 'Event was successfully updated.' }
@@ -87,7 +93,7 @@ class EventsController < ApplicationController
   def destroy
     authorize @event
     @event.destroy
-
+    I18n.locale = session.fetch(:locale, I18n.default_locale).to_sym
     respond_to do |format|
       format.html { redirect_to events_url, notice: 'Event was successfully destroyed.' }
       format.json { head :no_content }

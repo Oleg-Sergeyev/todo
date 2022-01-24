@@ -1,26 +1,24 @@
 div class = 'main-container mb-3' style ='margin: 5px; padding: 5px;'
   div style ='margin-left: 15px;'
-    h1 = t("Stats")
+    h1 = t('activerecord.models.stats')
   div id = 'table_view' class = 'mb-3' style ='margin: 10px;'
     table.table.table-striped
       thead 
         tr
           th = t("№")
-          th = t("Name") 
-          th = t("Email") 
-          th = t("Status")
-          th Задания
-          th Выполнено  
-          th Не выпол.
-          th Подзадания
-          th Выполено  
-          th Не выпол.
+          th = t('activerecord.attributes.user.name') 
+          th = t('activerecord.attributes.event.done')
+          th = t('activerecord.attributes.user.events_count')
+          th = t('activerecord.attributes.user.events_ffd_count')  
+          th = t('activerecord.attributes.user.events_unffd_count')
+          th = t('activerecord.attributes.user.items_count')
+          th = t('activerecord.attributes.user.items_ffd_count') 
+          th = t('activerecord.attributes.user.items_unffd_count') 
       tbody
         - @stat_users.each do |user|
           tr
             td = user.id 
             td = user.name 
-            td = user.email 
             td = user.active? ? 'yes' : 'no'
             td = user.events_count
             td = user.events_ffd_count
@@ -29,5 +27,4 @@ div class = 'main-container mb-3' style ='margin: 5px; padding: 5px;'
             td = user.items_ffd_count
             td = user.items_unffd_count
   div class = 'mb-3' style = 'margin-left: 5px;'
-    = link_to t('Events'), events_path, class: 'btn btn-primary', style: 'margin: 5px'
     

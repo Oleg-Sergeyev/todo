@@ -19,5 +19,5 @@ div id = 'table_view' class = 'mb-3' style ='margin: 10px;'
             td = event.created_at.strftime("%d-%m-%Y, %H:%M")
             td = "V" if event.done == true
             td = event.items.count
-            td = link_to 'Edit', edit_event_path(event)
-            td = link_to 'Destroy', event, data: { confirm: 'Are you sure?' }, method: :delete
+            td = link_to t('label.edit'), edit_event_path(event)
+            td = link_to t('label.destroy'), event, data: { confirm: 'Are you sure?' }, method: :delete

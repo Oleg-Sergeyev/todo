@@ -8,9 +8,9 @@ div id = 'calendar_event'
           = f.date_field :final_date, value: @final_date.strftime("%Y-%m-%d"), class: 'form-control form-control-sm'
       div class = 'input_row_count row'
         .field class="col"
-          = f.label 'Отображать по', style:'width: 130px'
+          = f.label t('label.display_by'), style:'width: 130px'
         .field class="col"
           = f.select(:rows_count, [['5'], ['15'], ['20'], ['25'], ['30'], ['35'], ['40']], {disabled: '40', selected: cookies[:rows_count].to_i})
       div class = 'apply_btn row'
         .actions 
-          = f.submit 'Применить', class: 'btn btn-primary mb', data: { disable_with: false }, id:'app_journal_btn'
+          = f.submit t('label.submit'), class: 'btn btn-primary mb', data: { disable_with: false }, id:'app_journal_btn'
