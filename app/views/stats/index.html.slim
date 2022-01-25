@@ -20,10 +20,10 @@ div class = 'main-container mb-3' style ='margin: 5px; padding: 5px;'
             td = user.id 
             td = user.name 
             td = user.active? ? 'yes' : 'no'
-            td = user.events_count
+            td = count_title(Event, user.events_count)
             td = user.events_ffd_count
             td = user.events_unffd_count
-            td = Item.where(event_id: user.events.ids).count
+            td = count_title(Item, Item.where(event_id: user.events.ids).count) 
             td = user.items_ffd_count
             td = user.items_unffd_count
   div class = 'mb-3' style = 'margin-left: 5px;'

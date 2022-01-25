@@ -71,6 +71,9 @@ en:
         list_items:   List items
         not_finished: Not finished
         finished:     Finished
+        many:         events
+        one:          event
+        others:       events
       comment:
         content:    Comment content
         created_at: Created at

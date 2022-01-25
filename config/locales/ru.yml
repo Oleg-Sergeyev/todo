@@ -48,10 +48,10 @@ ru:
         name:                  Имя пользователя
         active:                Статус
         created_at:            Был создан
-        updated_at:            Был обновален
+        updated_at:            Был обновлен
         events_ffd_count:      Выполненные задания
         events_unffd_count:    Невыполненные задания
-        events_count:          Количество задания
+        events_count:          Количество заданий
         items_count:           Количество подзаданий
         items_ffd_count:       Выполненные подзадания
         items_unffd_count:     Невыполненные подзадания
@@ -63,6 +63,9 @@ ru:
         done:         Статус завершения
         finished_at:  Было завершено
         editing_item: Изменение подзадания
+        many:         заданий
+        one:          задание
+        others:       задания
       event:
         name:         Название задания
         content:      Описание задания
@@ -72,6 +75,9 @@ ru:
         list_items:   Список подзадний
         not_finished: Не завершено
         finished:     Завершено
+        many:         заданий
+        one:          задание
+        others:       задания
       comment:
         content:    Содержимое сообщения
         created_at: Был создан
