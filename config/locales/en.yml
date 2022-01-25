@@ -1,4 +1,7 @@
 en:
+  time:
+    formats:
+      default: '%m/%d/%Y, %H:%M'
   label:
     log_in:           Authorization
     log_out:          Logout

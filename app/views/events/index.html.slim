@@ -7,9 +7,9 @@ div class = 'main-container mb-3' style ='margin: 5px; padding: 5px; padding-bot
     = render 'form_journal_panel'
   div id = 'date_view' class = 'mb-3' style ='margin-left: 15px;'
     b ="#{t('label.period')}: "
-    b =@start_date.strftime("%d-%m-%Y, %H:%M")
+    b =l(@start_date)
     b  - 
-    b =@final_date.strftime("%d-%m-%Y, %H:%M")
+    b =l(@final_date)
   div id = 'paginate' class = 'events-paginate mb-3' style ='margin-left: 15px;'
     = paginate @events  
   == render 'table_events'

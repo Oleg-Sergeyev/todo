@@ -1,4 +1,7 @@
 ru:
+  time:
+    formats:
+      default: '%d-%m-%Y, %H:%M'
   label:
     log_in:           Авторизация
     log_out:          Выход
