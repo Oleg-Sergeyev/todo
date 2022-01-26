@@ -7,7 +7,7 @@
 div class = "container mb-3" style = "width: fit-content;"
   = form_for(@admin_user, html: { method: :put }, url: :back) do |f|
     .d-flex.justify-content-between
-      = link_to 'Back', admin_users_path, class:'link-dark', style:'margin: 5px'
+      = link_to t('label.back'), admin_users_path, class:'link-dark', style:'margin: 5px'
       = link_to "Destroy", admin_destroy_user_path(@admin_user), method: :delete, data: { confirm: "You sure?" }, class:"link-danger", style:'margin: 5px'
     .form-group
       = f.select(:role_id, Role.all.collect {|u| [u.name, u.id]}, prompt:'Select') 

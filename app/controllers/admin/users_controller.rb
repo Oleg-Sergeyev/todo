@@ -1,5 +1,5 @@
 class Admin::UsersController < Admin::ApplicationController
-  before_action :set_admin_user, only: %i[ show edit update destroy ]
+  before_action :set_admin_user, only: %i[ show edit update destroy toggle]
   # after_action :verify_authorized, except: :index
   # after_action :verify_policy_scoped, only: :index
   
@@ -12,6 +12,13 @@ class Admin::UsersController < Admin::ApplicationController
     @admin_users = admin_users.select(sql).page(params[:page]).per(5)
   end
 
+  def toggle
+    authorize [:admin, @admin_user]
+    @admin_user.update_column(:active, !@admin_user.active)
+    respond_to do |format|
+      format.json { head :no_content }
+    end
+  end
   # GET /admin/users/1 or /admin/users/1.json
   def show
     authorize [:admin, User]

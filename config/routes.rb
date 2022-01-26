@@ -11,7 +11,11 @@ Rails.application.routes.draw do
   end
   namespace :admin do
     root 'users#index'
-    resources :users
+    resources :users do
+      member do
+        post :toggle, action: :toggle
+      end
+    end
   end
   root 'home#index'
 
