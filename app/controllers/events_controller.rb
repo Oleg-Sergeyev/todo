@@ -25,7 +25,8 @@ class EventsController < ApplicationController
     @start_date = cookies[:start_date].to_time
     @final_date = cookies[:final_date].to_time
     @users = User.includes(:events)
-    @events = TimeInterval.new([@start_date, @final_date], policy_scope(Event), :items)
+    events = one_query
+    @events = TimeInterval.new([@start_date, @final_date], policy_scope(events), :items)
                           .journal[:rows].page(params[:page]).per(cookies[:rows_count])
   end
 
@@ -109,18 +110,26 @@ class EventsController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def event_params
-    params.require(:event).permit(:name, :content, :done, :user, :start_date, :final_date, :rows_count)
+    params.require(:event).permit(:name, :user_name, :content, :done, :user, :start_date, :final_date, :rows_count)
   end
 
   def render_interval_query(rows_count, start_date, final_date)
     cookies.permanent[:rows_count] = rows_count
     @rows_count = rows_count
     @users = User.includes(:events)
-    data = TimeInterval.new([start_date, final_date], policy_scope(Event), :items).journal
+    events = one_query
+    data = TimeInterval.new([start_date, final_date], policy_scope(events), :items).journal
     @events = data[:rows].page(params[:page]).per(@rows_count)
     @start_date = data[:start_date]
     @final_date = data[:final_date]
     update_cookies
     render :index
+  end
+
+  def one_query
+    sql = '(SELECT name FROM users WHERE id = events.user_id) as user_name,
+           (SELECT COUNT(*) FROM items WHERE event_id = events.id) as count_items,
+           id, name, content, done, user_id, finished_at, created_at'
+    Event.select(sql)
   end
 end

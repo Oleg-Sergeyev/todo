@@ -14,10 +14,10 @@ div id = 'table_view' class = 'mb-3' style ='margin: 10px;'
         - @events.order(created_at: :asc).each_with_index do |event, index|
           tr
             td = (index + 1) + (cookies[:rows_count].to_i * @events.current_page) - cookies[:rows_count].to_i
-            td = @users.find(event.user_id).name
+            td = event.user_name
             td = link_to event.name, event
             td = event.created_at.strftime("%d-%m-%Y, %H:%M")
             td = "V" if event.done == true
-            td = event.items.count
+            td = event.count_items
             td = link_to t('label.edit'), edit_event_path(event)
             td = link_to t('label.destroy'), event, data: { confirm: 'Are you sure?' }, method: :delete
