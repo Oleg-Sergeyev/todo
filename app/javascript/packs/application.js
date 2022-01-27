@@ -41,8 +41,10 @@ window.addEventListener("load", () => {
 });
 
 window.onload = function() {
-  console.log(window.location.pathname);
-  if ( window.location.pathname == '/users/sign_in' || window.location.pathname == '/users/sign_up'){
+  const pages_auth = ['sign_in', 'sign_out']
+  let curr_page = window.location.pathname.split("/").pop()
+
+  if ( pages_auth.includes(curr_page) == true){
     check_email_input()
   }
 };
