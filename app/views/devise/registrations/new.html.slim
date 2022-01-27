@@ -6,10 +6,12 @@ h2
     = f.label :name
     br
     = f.text_field :name, autofocus: true  
-  .field
+  .field id='div_input_email'
     = f.label :email
     br
-    = f.email_field :email, autocomplete: "email"
+    = f.email_field :email, autocomplete: "email", id:"input_email"
+    br
+    = f.label " ", id:"label_wrong_email"
   .field
     = f.label :password
     - if @minimum_password_length

@@ -40,3 +40,25 @@ window.addEventListener("load", () => {
     });
   });
 });
+
+window.onload = function() {
+  check_email_input()
+};
+
+function ValidateEmail(mail) 
+{
+  var mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+  if(mail.match(mailformat)) { return (true) };
+  return (false);
+}
+
+function check_email_input()
+{
+  let input = document.getElementById('input_email');
+  let warning_label = document.getElementById('label_wrong_email');
+  input.addEventListener('input', () => { 
+    if (input.value == '') { warning_label.innerHTML = ' '; return; }
+    if (ValidateEmail(input.value) == false) { warning_label.innerHTML = 'Wrong_email!'; }
+      else{ warning_label.innerHTML = ' '; }
+  });
+}

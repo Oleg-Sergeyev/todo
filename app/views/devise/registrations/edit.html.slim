@@ -9,13 +9,15 @@ div class = "container mb-3" style = "width: fit-content;"
     .form-group
       = f.label :name
       = f.text_field :name, class:"form-control", placeholder:"Edit name", type:"text"
-    .form-group
+    .form-group id='div_input_email'
       = f.label :email
-      = f.email_field :email, autofocus: true, autocomplete: "email", class:"form-control", placeholder:"Email address", type:"email"
+      = f.email_field :email, autofocus: true, autocomplete: "email", class:"form-control", id:"input_email", placeholder:"Email address", type:"email"
           - if devise_mapping.confirmable? && resource.pending_reconfirmation?
             div
               | Currently waiting confirmation for: 
               = resource.unconfirmed_email
+      br
+      = f.label " ", id:"label_wrong_email"        
       small#emailHelp.form-text.text-muted We'll never share your email with anyone else.
     .form-group
       = f.label :password
