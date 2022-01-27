@@ -15,5 +15,5 @@ h2 = t("label.log_in")
       = f.check_box :remember_me
       = f.label :remember_me
   .actions
-    = f.submit t("label.log_in")
+    = f.submit t("label.log_in"), id:"submit_log_in", class:"submit", disabled: true
 = render "devise/shared/links"
