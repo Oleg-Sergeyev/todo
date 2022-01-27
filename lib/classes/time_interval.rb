@@ -13,14 +13,12 @@ class TimeInterval
 
   def create_query
     start = if @dates.first.nil?
-              @object.where(created_at: @object.select('MIN(created_at)'))
-                     .pluck(:created_at).first.to_time.beginning_of_day
+              @object.minimum(:created_at).to_time.beginning_of_day
             else
               @dates.first.beginning_of_day
             end
     final = if @dates.second.nil?
-              @object.where(created_at: @object.select('MAX(created_at)'))
-                     .pluck(:created_at).first.to_time.end_of_day
+              @object.maximum(:created_at).to_time.beginning_of_day
             else
               @dates.second.end_of_day
             end

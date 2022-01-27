@@ -110,7 +110,7 @@ class EventsController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def event_params
-    params.require(:event).permit(:name, :user_name, :content, :done, :user, :start_date, :final_date, :rows_count)
+    params.require(:event).permit(:name, :user_name, :content, :done, :user, :created_at, :start_date, :final_date, :rows_count)
   end
 
   def render_interval_query(rows_count, start_date, final_date)
@@ -131,5 +131,19 @@ class EventsController < ApplicationController
            (SELECT COUNT(*) FROM items WHERE event_id = events.id) as count_items,
            id, name, content, done, user_id, finished_at, created_at'
     Event.select(sql)
+    # sql = 'SELECT
+    #         (SELECT name FROM users WHERE id = events.user_id) as user_name,
+    #         id,
+    #         name,
+    #         content,
+    #         done,
+    #         user_id,
+    #         finished_at,
+    #         created_at
+    #         FROM events'
+    # ActiveRecord::Base.connection.exec_query(sql)
+    #User.event.group(:id).count
+    #User.joins(:events).group(:user_id).size
+    #Event.select(:id, { user_id: 'COUNT(id)' }).group(:id)
   end
 end
