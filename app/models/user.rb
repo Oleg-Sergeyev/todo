@@ -32,16 +32,20 @@ class User < ApplicationRecord
 
   has_one :seos, as: :promoted
 
-  Role.find_each do |role|
-    define_method "#{role.code}?" do
-      role_id == role.id
-     end
-  end
+  # Role.find_each do |role|
+  #   define_method "#{role.code}?" do
+  #     role_id == role.id
+  #    end
+  # end
   
   def admin?
     Role.where(code: 'admin')&.ids.include? role_id
   end
   
+  def default?
+    Role.where(code: 'default')&.ids.include? role_id
+  end
+
   private
 
   def normalize_email
