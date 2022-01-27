@@ -41,7 +41,10 @@ window.addEventListener("load", () => {
 });
 
 window.onload = function() {
-  check_email_input()
+  console.log(window.location.pathname);
+  if ( window.location.pathname == '/users/sign_in' || window.location.pathname == '/users/sign_up'){
+    check_email_input()
+  }
 };
 
 // document.addEventListener('DOMContentLoaded', (event) => {
