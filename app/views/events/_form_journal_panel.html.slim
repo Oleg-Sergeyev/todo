@@ -1,16 +1,19 @@
-div id = 'calendar_event'
+div id = 'calendar_event' class = 'mb-3' style ='margin: 10px;'
   = form_for :event do |f|
-    div class = "input_dates_form col" style =' display: flex; vertical-allign: center;'
-      div style ='margin: 8px 5px 5px 0px; display: flex; justify-content: space-around;'
+    table.table.table
+      thead
         .field
-          = f.date_field :start_date, value: @start_date.strftime("%Y-%m-%d"), class: 'form-control form-control-sm start_date', id:'start_date'
+          tr
+            th.col-1.st = f.label 'start_date'
+            th.col-1.st = f.label 'finish_date'
+            th.col-1.mid = f.label' count', style:"display: block; text-align:center;"
+            th.col-1.mid = f.label 'submit', style:"display: block; text-align:center;"
+            th.col-8
+      tbody
         .field
-          = f.date_field :final_date, value: @final_date.strftime("%Y-%m-%d"), class: 'form-control form-control-sm'
-      div class = 'input_row_count row'
-        .field class="col"
-          = f.label t('label.display_by'), style:'width: 130px'
-        .field class="col"
-          = f.select(:rows_count, [['5'], ['15'], ['20'], ['25'], ['30'], ['35'], ['40']], {disabled: '40', selected: cookies[:rows_count].to_i})
-      div class = 'apply_btn row'
-        .actions 
-          = f.submit t('label.submit'), class: 'btn btn-primary mb', data: { disable_with: false }, id:'app_journal_btn'
+          tr
+            td.col-1.st = f.date_field :start_date, value: @start_date.strftime("%Y-%m-%d"), class: 'form-control form-control-sm start_date', id:'start_date'
+            td.col-1.st = f.date_field :final_date, value: @final_date.strftime("%Y-%m-%d"), class: 'form-control form-control-sm'
+            td.col-1.mid = f.select(:rows_count, [['5'], ['15'], ['20'], ['25'], ['30'], ['35'], ['40']], {disabled: '40', selected: cookies[:rows_count].to_i}, id:"select_rows_count")
+            td.col-1.mid = f.submit t('label.submit'), class: 'btn btn-primary mb', data: { disable_with: false }, id:'app_journal_btn'
+            td.col-8

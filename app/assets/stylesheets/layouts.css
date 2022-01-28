@@ -72,3 +72,7 @@ color: grey;
   position: fixed;
 }
 }
+#select_rows_count{
+  text-align: center;
+  vertical-align: middle;
+}
