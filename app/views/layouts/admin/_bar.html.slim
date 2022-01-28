@@ -1,18 +1,18 @@
 = stylesheet_link_tag 'layouts'
-navbar class = "navbar navbar-expand-lg navbar-dark bg-dark"
+navbar class = "navbar navbar-expand-lg navbar-dark bg-dark bg-gradient"
   .container-fluid
      .collapse.navbar-collapse.justify-content-between
        ul.nav.navbar-nav.navbar-left.mr-auto 
          li.navbar-item
-         = link_to_unless_current( t("Users"), { controller: "/admin/users", action: "index" }, class: "nav-link"){ link_to( t("Users"), { controller: "/admin/users", action: "index" }, class: "nav-link disabled") }
+           = link_to_unless_current( (render 'layouts/admin/menu_item', item: "users"), { controller: "/admin/users", action: "index" }, class: "nav-link"){ link_to( (render 'layouts/admin/menu_item', item: "users"), { controller: "/admin/users", action: "index" }, class: "nav-link disabled") }
          li.navbar-item
-         = link_to_unless_current( t("New user"), new_admin_user_path, class: "nav-link"){ link_to( t("New user"), new_admin_user_path, class: "nav-link disabled") }
+           = link_to_unless_current( (render 'layouts/admin/menu_item', item: "new_user"), new_admin_user_path, class: "nav-link"){ link_to( (render 'layouts/admin/menu_item', item: "new_user"), new_admin_user_path, class: "nav-link disabled") }
          li.navbar-item
-         = link_to_unless_current( t("Roles"), { controller: "/admin/roles", action: "index" }, class: "nav-link"){ link_to( t("Roles"), { controller: "/admin/roles", action: "index" }, class: "nav-link disabled") }
+           = link_to_unless_current( (render 'layouts/admin/menu_item', item: "roles"), { controller: "/admin/roles", action: "index" }, class: "nav-link"){ link_to( (render 'layouts/admin/menu_item', item: "roles"), { controller: "/admin/roles", action: "index" }, class: "nav-link disabled") }
          li.navbar-item
-         = link_to_unless_current( t("New role"), new_admin_role_path, class: "nav-link"){ link_to( t("New role"), new_admin_role_path, class: "nav-link disabled") }
+           = link_to_unless_current( (render 'layouts/admin/menu_item', item: "new_role"), new_admin_role_path, class: "nav-link"){ link_to( (render 'layouts/admin/menu_item', item: "new_role"), new_admin_role_path, class: "nav-link disabled") } 
          li.navbar-item
-         = link_to_unless_current( t("Exit"), root_path, class: "nav-link"){ link_to( t("Exit"), root_path, class: "nav-link disabled") }
+           = link_to_unless_current( (render 'layouts/admin/menu_item', item: "exit"), root_path, class: "nav-link"){ link_to( (render 'layouts/admin/menu_item', item: "exit"), root_path, class: "nav-link disabled") }
        ul.nav.navbar-nav.navbar-right
         - if user_signed_in?
          li.nav-item.dropdown

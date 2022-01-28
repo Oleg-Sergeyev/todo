@@ -121,6 +121,8 @@ GEM
       railties (>= 5.0.0)
     ffaker (2.20.0)
     ffi (1.15.4)
+    font-awesome-sass (5.15.1)
+      sassc (>= 1.11)
     globalid (1.0.0)
       activesupport (>= 5.0)
     hpricot (0.8.6)
@@ -317,6 +319,7 @@ DEPENDENCIES
   erb_lint
   factory_bot_rails
   ffaker
+  font-awesome-sass (~> 5.15.1)
   html2slim
   jbuilder (~> 2.7)
   jquery-rails

@@ -7,24 +7,24 @@ div class = 'main-container mb-3' style ='margin: 5px; padding: 5px;'
         tr
           th = t("№")
           th = t('activerecord.attributes.user.name') 
-          th = t('activerecord.attributes.user.active')
-          th = t('activerecord.attributes.user.events_count')
-          th = t('activerecord.attributes.user.events_ffd_count')  
-          th = t('activerecord.attributes.user.events_unffd_count')
-          th = t('activerecord.attributes.user.items_count')
-          th = t('activerecord.attributes.user.items_ffd_count') 
-          th = t('activerecord.attributes.user.items_unffd_count') 
+          th.mid = t('activerecord.attributes.user.active')
+          th.mid = t('activerecord.attributes.user.events_count')
+          th.mid = t('activerecord.attributes.user.events_ffd_count')  
+          th.mid = t('activerecord.attributes.user.events_unffd_count')
+          th.mid = t('activerecord.attributes.user.items_count')
+          th.mid = t('activerecord.attributes.user.items_ffd_count') 
+          th.mid = t('activerecord.attributes.user.items_unffd_count') 
       tbody
         - @stat_users.each do |user|
           tr
             td = user['id'] 
             td = user['name'] 
-            td = user['active'] ? 'Acive' : 'Disactive'
-            td = user['events_count']
-            td = user['events_ffd_count']
-            td = user['events_unffd_count']
-            td = user['items_count'].to_i
-            td = user['items_ffd_count']
-            td = user['items_unffd_count']
+            td.mid = user['active'] ? 'Acive' : 'Disactive'
+            td.mid = user['events_count']
+            td.mid = user['events_ffd_count']
+            td.mid = user['events_unffd_count']
+            td.mid = user['items_count'].to_i
+            td.mid = user['items_ffd_count']
+            td.mid = user['items_unffd_count']
   div class = 'mb-3' style = 'margin-left: 5px;'
     

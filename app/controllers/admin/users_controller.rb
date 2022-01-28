@@ -3,6 +3,7 @@ class Admin::UsersController < Admin::ApplicationController
   # after_action :verify_authorized, except: :index
   # after_action :verify_policy_scoped, only: :index
   
+
   # GET /admin/users or /admin/users.json
   def index
     authorize [:admin, User]
