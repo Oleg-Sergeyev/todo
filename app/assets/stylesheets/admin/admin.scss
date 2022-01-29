@@ -22,4 +22,16 @@
 .navbar-nav > li:first-child {
   border-left: 1px dashed #484848;
 }
+#breadcrumb{
+  margin-bottom: -5px;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  height: 35px;
+  font-size: 1.2em;
+  color: #edeeef;
+  background-color: #212529;
+  padding: 0px 20px 0 20px;
+  border-radius: 0px 0px 15px 15px;
+}
 }

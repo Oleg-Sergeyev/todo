@@ -2,7 +2,7 @@ class Admin::UsersController < Admin::ApplicationController
   before_action :set_admin_user, only: %i[ show edit update destroy toggle]
   # after_action :verify_authorized, except: :index
   # after_action :verify_policy_scoped, only: :index
-  
+  add_breadcrumb 'users', :admin_users_path
 
   # GET /admin/users or /admin/users.json
   def index
@@ -23,17 +23,21 @@ class Admin::UsersController < Admin::ApplicationController
   # GET /admin/users/1 or /admin/users/1.json
   def show
     authorize [:admin, User]
+    add_breadcrumb @admin_user.name, admin_user_path(@admin_user.id)
   end
 
   # GET /admin/users/new
   def new
     @admin_user = User.new
     authorize [:admin, @admin_user]
+    add_breadcrumb 'new', admin_users_path
   end
 
   # GET /admin/users/1/edit
   def edit
     authorize [:admin, User]
+    add_breadcrumb @admin_user.name, admin_user_path(@admin_user.id)
+    add_breadcrumb 'edit'
   end
 
   # POST /admin/users or /admin/users.json

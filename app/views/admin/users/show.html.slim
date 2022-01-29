@@ -1,19 +1,26 @@
-div class = "container mb-3" style = "width: fit-content;"
+div id = 'table_users' class = 'mb-3' style ='margin: 10px; width: fit-content'
   = form_for(@admin_user, html: { method: :put }) do |f|
-    .d-flex.justify-content-center style="color:red;"
-      = @admin_user.errors.messages[:name].join
-    .form-group class="form-control"
-      = f.label :role 
-      = ": #{@admin_user.role.name}"   
-    .form-group class="form-control"
-      = f.label :name
-      = ": #{@admin_user.name}"
-    .form-group class="form-control"
-      = f.label :email
-      = ": #{@admin_user.email}"
-    .form-group class="form-control"
-      = f.label :active
-      = f.check_box :active, {checked:@admin_user.active, disabled: true}
-    .d-flex.justify-content-between
-      = link_to 'Back', admin_users_path, class: 'btn btn-dark', style: 'margin: 5px'
-      = link_to 'Edit', edit_admin_user_path(@admin_user), class: 'btn btn-dark', style: 'margin: 5px'
+    table.table.table.table-striped style ='margin: 5px;'
+      thead
+        tr
+          th = t("Params")
+          th = t("Value")
+      tbody
+        .field     
+          tr
+            td = f.label :role
+            td = @admin_user.role.name 
+          tr
+            td = f.label :name
+            td = @admin_user.name
+          tr
+            td = f.label :email
+            td = @admin_user.email
+          tr
+            td = f.label :active
+            td = f.check_box :active, {checked:@admin_user.active, disabled: true}
+          tr
+            td colspan="2"
+              .d-flex.justify-content-between
+                = link_to 'Back', admin_users_path, class: 'btn btn-dark', style: 'margin: 5px'
+                = link_to 'Edit', edit_admin_user_path(@admin_user), class: 'btn btn-dark', style: 'margin: 5px'

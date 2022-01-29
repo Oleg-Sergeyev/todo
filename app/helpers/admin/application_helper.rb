@@ -2,6 +2,7 @@
 
 module Admin::ApplicationHelper
   def activate_title(user)
-    user.active? ? 'Disactivate' : 'Active'
+    user.active? ?  'Active' : 'Disactive'
   end
+
 end

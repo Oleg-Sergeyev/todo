@@ -10,6 +10,7 @@ html
     = javascript_pack_tag 'application','data-turbolinks-track': 'reload'
   body id="admin_page"
     .container
-    = render 'layouts/admin/bar'
-    = yield 
-    = render 'layouts/admin/footer'
+      = render 'layouts/admin/bar'
+      = render 'layouts/admin/bredcrump'
+      = yield 
+      = render 'layouts/admin/footer'

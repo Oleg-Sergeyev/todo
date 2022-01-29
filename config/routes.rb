@@ -29,6 +29,8 @@ Rails.application.routes.draw do
   devise_for :users #, :path_prefix => 'admin'
   match 'users/:id' => 'admin/users#destroy', via: :delete, as: :admin_destroy_user
   match 'users/:id' => 'admin/users#create', via: :create, as: :admin_create_user
+  #match 'users/:id' => 'admin/users#edit', via: :edit, as: :edit_admin_user
+  #match 'users/:id' => 'admin/users#show', via: :show, as: :show_admin_user
   resources :users
 
   match 'roles/:id' => 'admin/roles#destroy', via: :delete, as: :admin_destroy_role
