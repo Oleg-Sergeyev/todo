@@ -45,7 +45,7 @@ div id = 'table_users' class = 'mb-3' style ='margin: 10px; width: fit-content'
         .field     
           tr
             td = f.label :role
-            td = f.select(:role_id, Role.all.collect {|u| [u.name, u.id]}, prompt:'Select') 
+            td = f.select(:role_id, Role.all.collect {|u| [u.name, u.id]}, {}, {class: "form-select"}) 
           tr
             td = f.label :name
             td = f.text_field :name, class:"form-control", placeholder:"Edit name", type:"text"
@@ -72,3 +72,9 @@ div id = 'table_users' class = 'mb-3' style ='margin: 10px; width: fit-content'
             td colspan="2"
               .form-check.d-flex.justify-content-end
                 = f.submit "Update pass", data: { confirm: "Are you sure?" }, class: 'btn btn-secondary'
+        tbody         
+          tr
+            td = f.label 'Back to view user'
+            td = link_to t('label.back'), admin_user_path(@admin_user), class: 'btn btn-secondary'
+            
+            

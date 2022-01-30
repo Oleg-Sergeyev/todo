@@ -43,9 +43,13 @@ window.addEventListener("load", () => {
 window.onload = function() {
   const pages_auth = ['sign_in', 'sign_out']
   let curr_page = window.location.pathname.split("/").pop()
+  let admin_page = window.location.pathname.split("/")[1]
 
   if ( pages_auth.includes(curr_page) == true){
     check_email_input()
+  }
+  if ( admin_page == 'admin'){
+    hide_bredcrumbs_panel();
   }
 };
 
@@ -82,4 +86,15 @@ function toggle_submit(val){
   if (val == 'on') {
     button_submit.disabled = false
   } else { button_submit.disabled = true }
+}
+
+//
+function hide_bredcrumbs_panel(){
+  let close_button = document.getElementById('close_breadcrumbs_bar')
+  let bredcrumbs_div = document.getElementById('breadcrumbs')
+  close_button.onclick = function(event){
+    if (bredcrumbs_div){
+      bredcrumbs_div.style.visibility = "hidden"
+    }
+  }
 }
