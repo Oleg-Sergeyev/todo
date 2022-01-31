@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 class AboutController < ApplicationController
-  before_action :log_start, :log_params, :log_finish, only: [:show,:index]
+  before_action :log_start, :log_params, :log_finish, only: %i[show index]
 
   def index; end
 

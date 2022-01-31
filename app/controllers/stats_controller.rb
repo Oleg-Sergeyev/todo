@@ -2,10 +2,10 @@
 
 class StatsController < ApplicationController
   def index
-    @stat_users = get_data #User.order(:name)
+    @stat_users = get_data # User.order(:name)
     Rails.logger.info "*********#{@stat_users}************"
     I18n.locale = session.fetch(:locale, I18n.default_locale).to_sym
-    #get_data
+    # get_data
   end
 
   def get_data
@@ -21,6 +21,6 @@ class StatsController < ApplicationController
            GROUP BY users.id, users
            ORDER BY users.name ASC;'
     ActiveRecord::Base.connection.exec_query(sql)
-    #Rails.logger.info "*********#{ActiveRecord::Base.connection.exec_query(sql).last}************"
+    # Rails.logger.info "*********#{ActiveRecord::Base.connection.exec_query(sql).last}************"
   end
 end

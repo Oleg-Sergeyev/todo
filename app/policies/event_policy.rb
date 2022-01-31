@@ -1,6 +1,6 @@
+# frozen_string_literal: true
 
 class EventPolicy < ApplicationPolicy
-
   class Scope < Scope
     def resolve
       EventsScopeService.call(user, scope)

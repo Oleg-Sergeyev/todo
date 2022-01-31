@@ -1,8 +1,7 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
-  
-  #get 'items/index'
+  # get 'items/index'
   resources :events do
     resources :items
   end
@@ -15,7 +14,7 @@ Rails.application.routes.draw do
       member do
         post :toggle, action: :toggle
       end
-     end
+    end
   end
 
   root 'home#index'
@@ -25,13 +24,13 @@ Rails.application.routes.draw do
   # scope '/:locale' do
   #   get 'home', to: 'home#index'
   # end
-  
-  #devise_for :users
-  devise_for :users #, :path_prefix => 'admin'
+
+  # devise_for :users
+  devise_for :users # , :path_prefix => 'admin'
   match 'users/:id' => 'admin/users#destroy', via: :delete, as: :admin_destroy_user
   match 'users/:id' => 'admin/users#create', via: :create, as: :admin_create_user
-  #match 'users/:id' => 'admin/users#edit', via: :edit, as: :edit_admin_user
-  #match 'users/:id' => 'admin/users#show', via: :show, as: :show_admin_user
+  # match 'users/:id' => 'admin/users#edit', via: :edit, as: :edit_admin_user
+
   resources :users
 
   match 'roles/:id' => 'admin/roles#destroy', via: :delete, as: :admin_destroy_role
@@ -48,7 +47,7 @@ Rails.application.routes.draw do
   end
   resources :events
   # get 'events/page/(:page(.:format))', to: 'events#index'
-  #get 'events/page', to: 'events#index'
+  # get 'events/page', to: 'events#index'
   get 'stats', to: 'stats#index'
   get 'about', to: 'about#index'
   # get 'calendar', to: 'calendar#index', as: 'calendar_index'

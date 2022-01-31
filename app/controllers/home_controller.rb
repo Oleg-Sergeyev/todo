@@ -5,8 +5,8 @@ class HomeController < ApplicationController
   before_action :log_start, :log_params, :log_finish, only: :index
 
   def index
-    #I18n.locale = params.fetch(:locale, I18n.default_locale)
-    #I18n.locale = locale if I18n.available_locales.include?(locale)
+    # I18n.locale = params.fetch(:locale, I18n.default_locale)
+    # I18n.locale = locale if I18n.available_locales.include?(locale)
     I18n.locale = session.fetch(:locale, I18n.default_locale).to_sym
   end
 

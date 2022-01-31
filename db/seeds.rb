@@ -41,7 +41,7 @@ hash_items = 200.times.map do
   {
     name: FFaker::HipsterIpsum.paragraph,
     event: events.sample,
-    done: [true, false].sample,
+    done: [true, false].sample
   }
 end
 Item.create! hash_items
@@ -72,7 +72,7 @@ end
 
 Seo.create! hash_seos
 
-#User.create!(name: 'admin@example.com', email: 'admin@example.com', password: 'password', password_confirmation: 'password') if Rails.env.development?
+# User.create!(name: 'admin@example.com', email: 'admin@example.com', password: 'password', password_confirmation: 'password') if Rails.env.development?
 hash_user =
   {
     name: 'admin1@example.com',

@@ -12,7 +12,7 @@ FactoryBot.define do
     role { create(:role) }
     events_unffd_count { 0 }
     items_unffd_count { 0 }
-    password { "admin1@example.com" }
-    password_confirmation { "admin1@example.com" }
+    password { 'admin1@example.com' }
+    password_confirmation { 'admin1@example.com' }
   end
 end

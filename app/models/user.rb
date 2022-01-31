@@ -5,7 +5,7 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
-  
+
   after_initialize :def_methods
 
   before_destroy :log_before_destroy
@@ -40,12 +40,12 @@ class User < ApplicationRecord
         role_id == role.id
       end
     end
-  end 
+  end
 
   # def admin?
   #   Role.where(code: 'admin')&.ids.include? role_id
   # end
- 
+
   # def default?
   #   Role.where(code: 'default')&.ids.include? role_id
   # end
@@ -65,7 +65,7 @@ class User < ApplicationRecord
   end
 
   def normalize_name
-    self.name = name.downcase if name #.titleize
+    self.name = name.downcase if name # .titleize
   end
 
   def log_before_destroy

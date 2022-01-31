@@ -1,6 +1,6 @@
+# frozen_string_literal: true
 
 class UserPolicy < ApplicationPolicy
-
   class Scope < Scope
     def resolve
       user.admin? ? scope.all : scope.where(id: user.id)
@@ -21,6 +21,6 @@ class UserPolicy < ApplicationPolicy
 
   def destroy?
     record.id == user.id || user.admin?
-    #user.admin? && user.id != record.id
+    # user.admin? && user.id != record.id
   end
 end

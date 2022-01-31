@@ -1,8 +1,9 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 
 RSpec.describe EventPolicy do
   subject { EventPolicy.new(user, event) }
-
 
   context 'для неавторизованного пользователя' do
     let(:event) { create(:event) }
@@ -31,7 +32,7 @@ RSpec.describe EventPolicy do
   end
 
   context 'для авторизованного администратора' do
-    before(:all) { create(:role, code: :admin)}
+    before(:all) { create(:role, code: :admin) }
     let(:user) { create(:user, role: build(:role, code: :admin)) }
     let(:event) { create(:event, user: user) }
 

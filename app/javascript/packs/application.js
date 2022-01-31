@@ -51,7 +51,39 @@ window.onload = function() {
   if ( admin_page == 'admin'){
     hide_bredcrumbs_panel();
   }
+  if (curr_page == 'new'){
+    new_user()
+  };
 };
+
+//
+function new_user(){
+const element = document.getElementById("new-user");
+element.addEventListener("ajax:success", function (data){
+  query()
+});
+};
+//
+function query(){
+Rails.ajax({
+  type: "GET",
+  dataType: "json", 
+  url: "new?generate=true",
+  success: function(repsonse){
+    console.log(repsonse)
+    const data = (repsonse["new_user"]["name"])
+    insert_data_to_form(data);
+  },
+ // error: function(repsonse){...}
+});
+}
+//
+function insert_data_to_form(name){
+  document.getElementById("name").value = name;
+  document.getElementById("email").value = name;
+  document.getElementById("password").value = name;
+  document.getElementById("confirm_password").value = name;
+}
 
 // document.addEventListener('DOMContentLoaded', (event) => {
 //   check_email_input();
@@ -97,4 +129,14 @@ function hide_bredcrumbs_panel(){
       bredcrumbs_div.style.visibility = "hidden"
     }
   }
+}
+
+//
+function generate_email(){
+  let generate_link = document.getElementById('generate_user')
+  generate_link.onclick = function(event){
+    
+    
+  }
+
 }

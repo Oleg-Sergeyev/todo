@@ -2,7 +2,6 @@
 
 module Admin
   class ApplicationPolicy < ApplicationPolicy
-   
     def index?
       user.admin?
     end
@@ -23,4 +22,4 @@ module Admin
       user.admin?
     end
   end
-end  
+end

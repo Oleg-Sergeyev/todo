@@ -48,6 +48,7 @@ class ApplicationPolicy
       #   sign_in: 'login', sign_out: 'logout'
       # }
     end
+
     private
 
     attr_reader :user, :scope
