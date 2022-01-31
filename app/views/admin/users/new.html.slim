@@ -1,32 +1,76 @@
-h1 = t("New user")
+/ h1 = t("New user")
 
 /== render 'form'
 
 /= link_to 'Back', admin_users_path
 
-div class = "container mb-3" style = "width: fit-content;"
-  - fake_data = FFaker::Internet.safe_email
-  = form_for([:admin, @admin_user], html: { method: :post }) do |f|
-    .d-flex.justify-content-between
-      = link_to 'Generate new user', new_admin_user_path
-      = link_to 'Back', :back, class:'link-dark', style:'margin: 5px'
-    .form-group
-      = f.label :role
-      = f.select(:role_id, Role.all.collect {|u| [u.name, u.id]}, :prompt => 'Select')
-    .form-group
-      = f.label :name
-      = f.text_field :name, value: fake_data, class:"form-control", placeholder:"Edit name", type:"text"
-    .form-group
-      = f.label :email
-      = f.email_field :email, value: fake_data, autofocus: true, autocomplete: "email", class:"form-control", placeholder:"Email address", type:"email"
-    .form-group
-      = f.label :active
-      = f.check_box :active, {checked: rand(2) == 1 ? true : false}
-    .form-group
-      = f.label :password
-      = f.password_field :password, value: fake_data, autocomplete: "new-password", class:"form-control", placeholder:"New password",type:"password"
-    .form-group
-      = f.label :password_confirmation
-      = f.password_field :password_confirmation, value: fake_data, autocomplete: "new-password", class:"form-control", placeholder:"Confirm password",type:"password"
-    .form-check class="form-check d-flex justify-content-end"
-      = f.submit "Save", data: { confirm: "Are you sure?" }, class: 'btn btn-dark', style: 'margin: 5px'
+/ div class = "container mb-3" style = "width: fit-content;"
+/   - fake_data = FFaker::Internet.safe_email
+/   = form_for([:admin, @admin_user], html: { method: :post }) do |f|
+/     .d-flex.justify-content-between
+/       = link_to 'Generate new user', new_admin_user_path
+/       = link_to 'Back', :back, class:'link-dark', style:'margin: 5px'
+/     .form-group
+/       = f.label :role
+/       = f.select(:role_id, Role.all.collect {|u| [u.name, u.id]}, :prompt => 'Select')
+/     .form-group
+/       = f.label :name
+/       = f.text_field :name, value: fake_data, class:"form-control", placeholder:"Edit name", type:"text"
+/     .form-group
+/       = f.label :email
+/       = f.email_field :email, value: fake_data, autofocus: true, autocomplete: "email", class:"form-control", placeholder:"Email address", type:"email"
+/     .form-group
+/       = f.label :active
+/       = f.check_box :active, {checked: rand(2) == 1 ? true : false}
+/     .form-group
+/       = f.label :password
+/       = f.password_field :password, value: fake_data, autocomplete: "new-password", class:"form-control", placeholder:"New password",type:"password"
+/     .form-group
+/       = f.label :password_confirmation
+/       = f.password_field :password_confirmation, value: fake_data, autocomplete: "new-password", class:"form-control", placeholder:"Confirm password",type:"password"
+/     .form-check class="form-check d-flex justify-content-end"
+/       = f.submit "Save", data: { confirm: "Are you sure?" }, class: 'btn btn-dark', style: 'margin: 5px'
+
+div id = 'table_new_user' class = 'mb-3' style ='margin: 10px; width: fit-content'
+  /- fake_data = FFaker::Internet.safe_email
+  table.table.table.table-striped style ='margin: 5px;'
+    thead
+      tr
+        th colspan="2"
+          .d-flex.justify-content-between
+            = t('New user')
+            /- @admin_user = generate_new_user
+            = link_to 'Generate user', id:"generate_user"
+      tr
+        th = t("Params")
+        th = t("Value")
+    tbody
+      = form_for([:admin, @admin_user], html: { method: :post }) do |f|
+        .field     
+          tr
+            td = f.label :role
+            td = f.select(:role_id, Role.all.collect {|u| [u.name, u.id]}, {}, {class: "form-select"}) 
+          tr
+            td = f.label :name
+            td = f.text_field :name, value: @admin_user.name, class:"form-control", placeholder:"Edit name", type:"text"
+          tr
+            td = f.label :email
+            td = f.email_field :email, value: @admin_user.email, autofocus: true, autocomplete: "email", class:"form-control", placeholder:"Email address", type:"email"
+          tr
+            td = f.label :active
+            td = f.check_box :active, {checked: @admin_user.active}
+          tr
+            td = f.label :password
+            td = f.password_field :password, value: @admin_user.password, autocomplete: "new-password", class:"form-control", placeholder:"New password",type:"password"
+          tr
+            td = f.label :password_confirmation
+            td = f.password_field :password_confirmation, value: @admin_user.password, autocomplete: "new-password", class:"form-control", placeholder:"Confirm password",type:"password"
+          tr
+            td colspan="2"
+              .form-check.d-flex.justify-content-end
+                = f.submit "Create", data: { confirm: "Are you sure?" }, class: 'btn btn-secondary'
+        tbody         
+          tr
+            td = f.label 'Back to users'
+            td = link_to t('label.back'), admin_users_path, class: 'btn btn-secondary'
+            

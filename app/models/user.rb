@@ -13,7 +13,7 @@ class User < ApplicationRecord
   before_validation :normalize_email, if: proc { |u| u.email }
 
   validates :name, presence: true
-  validates :name, length: { maximum: 30, minimum: 2 }
+  validates :name, length: { maximum: 50, minimum: 2 }
   validates :name, uniqueness: true
 
   belongs_to :role
@@ -32,18 +32,25 @@ class User < ApplicationRecord
 
   has_one :seos, as: :promoted
 
-  # Role.find_each do |role|
-  #   define_method "#{role.code}?" do
-  #     role_id == role.id
-  #    end
-  # end
-  
-  def admin?
-    Role.where(code: 'admin')&.ids.include? role_id
+  Role.find_each do |role|
+    puts Role.after_initialize
+    puts Role.ids
+    puts User.after_initialize
+    Role.define_method "#{role.code}?" do
+      role_id == role.id
+    end
   end
   
-  def default?
-    Role.where(code: 'default')&.ids.include? role_id
+  # def admin?
+  #   Role.where(code: 'admin')&.ids.include? role_id
+  # end
+  
+  # def default?
+  #   Role.where(code: 'default')&.ids.include? role_id
+  # end
+
+  def active_for_authentication?
+    super && active?
   end
 
   private

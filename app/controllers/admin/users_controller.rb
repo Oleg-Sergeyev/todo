@@ -1,5 +1,5 @@
 class Admin::UsersController < Admin::ApplicationController
-  before_action :set_admin_user, only: %i[ show edit update destroy toggle]
+  before_action :set_admin_user, only: %i[ show edit update destroy toggle generate]
   # after_action :verify_authorized, except: :index
   # after_action :verify_policy_scoped, only: :index
   add_breadcrumb 'users', :admin_users_path
@@ -20,6 +20,7 @@ class Admin::UsersController < Admin::ApplicationController
       format.json { head :no_content }
     end
   end
+
   # GET /admin/users/1 or /admin/users/1.json
   def show
     authorize [:admin, User]

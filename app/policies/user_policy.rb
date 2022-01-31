@@ -7,6 +7,10 @@ class UserPolicy < ApplicationPolicy
     end
   end
 
+  def generate?
+    user.admin?
+  end
+
   def show?
     record.id == user.id || user.admin?
   end

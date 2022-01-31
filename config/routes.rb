@@ -15,8 +15,9 @@ Rails.application.routes.draw do
       member do
         post :toggle, action: :toggle
       end
-    end
+     end
   end
+
   root 'home#index'
 
   post :toggle, to: 'locales#toggle'
