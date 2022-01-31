@@ -78,7 +78,7 @@ hash_user =
     name: 'admin1@example.com',
     email: 'admin1@example.com',
     role: admin_role,
-    active: [true, false].sample,
+    active: true,
     events_unffd_count: 0,
     events_ffd_count: 0,
     items_unffd_count: 0,

@@ -5,6 +5,8 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
+  
+  after_initialize :def_methods
 
   before_destroy :log_before_destroy
   after_destroy :log_after_destroy
@@ -32,19 +34,18 @@ class User < ApplicationRecord
 
   has_one :seos, as: :promoted
 
-  Role.find_each do |role|
-    puts Role.after_initialize
-    puts Role.ids
-    puts User.after_initialize
-    Role.define_method "#{role.code}?" do
-      role_id == role.id
+  def def_methods
+    Role.find_each do |role|
+      User.define_method "#{role.code}?" do
+        role_id == role.id
+      end
     end
-  end
-  
+  end 
+
   # def admin?
   #   Role.where(code: 'admin')&.ids.include? role_id
   # end
-  
+ 
   # def default?
   #   Role.where(code: 'default')&.ids.include? role_id
   # end
