@@ -1,80 +1,52 @@
-/== render 'form'
-
-/=> link_to 'Show', @admin_user
-/'|
-/=< link_to 'Back', admin_users_path
-
-/ div class = "container mb-3" style = "width: fit-content;"
-/   = form_for(@admin_user, html: { method: :put }, url: :back) do |f|
-/     .d-flex.justify-content-between
-/       = link_to t('label.back'), admin_users_path, class:'link-dark', style:'margin: 5px'
-/       = link_to "Destroy", admin_destroy_user_path(@admin_user), method: :delete, data: { confirm: "You sure?" }, class:"link-danger", style:'margin: 5px'
-/     .form-group
-/       = f.select(:role_id, Role.all.collect {|u| [u.name, u.id]}, prompt:'Select') 
-/     .form-group
-/       = f.label :name
-/       = f.text_field :name, class:"form-control", placeholder:"Edit name", type:"text"
-/     .form-group
-/       = f.label :email
-/       = f.email_field :email, autofocus: true, autocomplete: "email", class:"form-control", placeholder:"Email address", type:"email"
-/     .form-group
-/       = f.label :active
-/       = f.check_box :active, {checked: @admin_user.active}
-/     .form-check class="form-check d-flex justify-content-end"
-/       = f.submit "Update", data: { confirm: "Are you sure?" }, class: 'btn btn-dark', style: 'margin: 5px'  
-/   = form_for(@admin_user, html: { method: :put }, url: :back) do |f|          
-/     .form-group
-/       = f.label :password
-/       = f.password_field :password, autocomplete: "new-password", class:"form-control", placeholder:"New password",type:"password"
-/     .form-group
-/       = f.label :password_confirmation
-/       = f.password_field :password_confirmation, autocomplete: "new-password", class:"form-control", placeholder:"Confirm password",type:"password"
-/     .form-check class="form-check d-flex justify-content-end"
-/       = f.submit "Change pass", data: { confirm: "Are you sure?" }, class: 'btn btn-dark', style: 'margin: 5px'
 div id = 'table_users' class = 'mb-3' style ='margin: 10px; width: fit-content'
   table.table.table.table-striped style ='margin: 5px;'
     thead
-      tr
-        th colspan="2"
-          = 'Edit user profile'
-      tr
-        th = t("Params")
-        th = t("Value")
-    tbody
-      = form_for(@admin_user, html: { method: :put }, url: :back) do |f|
-        .field     
+      = form_for(@admin_user, html: { method: :put }, url: admin_user_path(@admin_user)) do |f|
+        .field   
+          tr
+            th colspan="2"
+              .d-flex.justify-content-between
+                = link_to 'Edit user', edit_admin_user_path, method: :get, id:'edit-user', remote: true, style:"font-size: 1.8em;"
+                = f.submit "Delete user", data: { confirm: "You sure?" }, method: :delete, class: 'btn btn-secondary', disabled: true
+            tr
+              th = t("Params")
+              th = t("Value")
+        tbody
           tr
             td = f.label :role
-            td = f.select(:role_id, Role.all.collect {|u| [u.name, u.id]}, {}, {class: "form-select"}) 
+            td = f.select(:role_id, Role.all.collect {|u| [u.name, u.id]}, {}, {class: "form-select", id:"role-select", disabled: true}) 
           tr
             td = f.label :name
-            td = f.text_field :name, class:"form-control", placeholder:"Edit name", type:"text"
+            td = f.text_field :name, class:"form-control", placeholder:"Edit name", type:"text", disabled: true
           tr
             td = f.label :email
-            td = f.email_field :email, autofocus: true, autocomplete: "email", class:"form-control", placeholder:"Email address", type:"email"
+            td = f.email_field :email, autofocus: true, autocomplete: "email", class:"form-control", placeholder:"Email address", type:"email", disabled: true
           tr
             td = f.label :active
-            td = f.check_box :active, {checked: @admin_user.active}
+            td = f.check_box :active, {checked: @admin_user.active, disabled: true, id:"check-box-active"}
           tr
             td colspan="2"
-              .form-check.d-flex.justify-content-end
-                = f.submit "Update data", data: { confirm: "Are you sure?" }, class: 'btn btn-secondary' 
+              = f.submit "Update data", data: { confirm: "Are you sure?" }, class: 'btn btn-secondary', disabled: true
     tbody                                
       = form_for(@admin_user, html: { method: :put }, url: :back) do |f|
         .field   
           tr
             td = f.label :password
-            td = f.password_field :password, autocomplete: "new-password", class:"form-control", placeholder:"New password",type:"password"
+            td = f.password_field :password, autocomplete: "new-password", class:"form-control", placeholder:"New password",type:"password", disabled: true
           tr
             td = f.label :password_confirmation
-            td = f.password_field :password_confirmation, autocomplete: "new-password", class:"form-control", placeholder:"Confirm password",type:"password"
+            td = f.password_field :password_confirmation, autocomplete: "new-password", class:"form-control", placeholder:"Confirm password",type:"password", disabled: true
           tr
             td colspan="2"
               .form-check.d-flex.justify-content-end
-                = f.submit "Update pass", data: { confirm: "Are you sure?" }, class: 'btn btn-secondary'
+                = f.submit "Update pass", data: { confirm: "Are you sure?" }, class: 'btn btn-secondary', disabled: true
         tbody         
           tr
-            td = f.label 'Back to view user'
-            td = link_to t('label.back'), admin_user_path(@admin_user), class: 'btn btn-secondary'
+            td colspan="2"
+              .form-check.d-flex.justify-content-center id="cancel-link"
+                = link_to t('label.cancel'), edit_admin_user_path(@admin_user), class: 'btn btn-secondary'
+                /= f.submit "Cancel", data: { confirm: "Are you sure?" }, class: 'btn btn-secondary', disabled: true
+                /= link_to t('label.cancel'), class: 'btn btn-secondary'
+            /td = link_to t('label.cancel'), edit_admin_user_path(@admin_user), class: 'btn btn-secondary', disabled: true
             
             

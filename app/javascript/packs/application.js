@@ -54,6 +54,9 @@ window.onload = function() {
   if (curr_page == 'new'){
     new_user()
   };
+  if (curr_page == 'edit'){
+    edit_user()
+  };
 };
 
 //
@@ -63,6 +66,13 @@ element.addEventListener("ajax:success", function (data){
   query()
 });
 };
+
+function edit_user(){
+  const element = document.getElementById("edit-user");
+  element.addEventListener("ajax:success", function (data){
+    query_edit()
+  });
+};
 //
 function query(){
 Rails.ajax({
@@ -70,13 +80,48 @@ Rails.ajax({
   dataType: "json", 
   url: "new?generate=true",
   success: function(repsonse){
-    console.log(repsonse)
+    //console.log(repsonse)
     const data = (repsonse["new_user"]["name"])
     insert_data_to_form(data);
   },
  // error: function(repsonse){...}
 });
 }
+
+function query_edit(){
+  Rails.ajax({
+    type: "GET",
+    dataType: "json", 
+    url: "edit?edit=true",
+    success: function(repsonse){
+      enabled_form_elements();
+    },
+   // error: function(repsonse){...}
+  });
+  }
+
+  function enabled_form_elements(){
+    let inputs = document.querySelectorAll('input')
+    inputs.forEach((input) => {
+      input.disabled = false; 
+    });
+    let check_box = document.getElementById('check-box-active')
+    check_box.disabled = false;
+    let submits = document.querySelectorAll('input[type=submit]')
+    submits.forEach((submit) => {
+      submit.disabled = false; 
+    });
+    let select = document.getElementById('role-select');
+    select.disabled = false;
+    // let div_link = document.getElementById('cancel-link');
+    // const link = document.createElement("a");
+    // const linkText = document.createTextNode("Cancel");
+    // link.appendChild(linkText);
+    // link.title = "Cancel";
+    // link.href = "edit_admin_user_path(@admin_user)";
+    // div_link.appendChild(link);
+  }
+
 //
 function insert_data_to_form(name){
   document.getElementById("name").value = name;

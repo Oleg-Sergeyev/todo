@@ -18,7 +18,7 @@ class User < ApplicationRecord
   validates :name, length: { maximum: 50, minimum: 2 }
   validates :name, uniqueness: true
 
-  belongs_to :role
+  belongs_to :role, inverse_of: :users
   has_many :comments, dependent: :destroy
   has_many :events, dependent: :destroy
   has_many :has_items, through: :events, source: :items
