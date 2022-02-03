@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
-  # get 'items/index'
+  mount RootApi => '/'
   resources :events do
     resources :items
   end

@@ -24,7 +24,7 @@ module Admin
       #@admin_users = policy_scope(User.includes(:role), policy_scope_class: Admin::UserPolicy::Scope)
       #.page(params[:page])
       #.per(5)#.as_json(only: [:id, :name, :email, :active, :code, :created_at])
-      Rails.logger.info "!!!!!!!!!!#{@admin_users.first.role.code}!!!!!!!!!!!!"
+      #Rails.logger.info "!!!!!!!!!!#{@admin_users.first.role.code}!!!!!!!!!!!!"
        #@admin_users = User.all.joins(:role).select("roles.code as code").group("users.id")
     end
 

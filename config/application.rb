@@ -31,11 +31,15 @@ module Todo
     # in config/environments, which are processed later.
     #
     # config.time_zone = "Central Time (US & Canada)"
+    config.autoload_paths += Dir["#{config.root}/app/**/"]
     config.eager_load_paths << Rails.root.join('lib/classes')
     config.eager_load_paths << Rails.root.join('/services')
+    #config.paths.add Rails.root.join('app', 'api', 'helpers')#, eager_load: true
+    #config.eager_load_paths << Rails.root.join('app', 'api', 'helpers')
     config.i18n.available_locales = %i[en ru]
     config.i18n.default_locale = :ru
     config.time_zone = 'Moscow'
+   
     # config.active_record.default_timezone = :utc
     # Don't generate system test files.
     config.generators.system_tests = nil
