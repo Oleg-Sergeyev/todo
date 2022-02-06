@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class User < ApplicationRecord
+  include Rolable
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
@@ -42,17 +43,27 @@ class User < ApplicationRecord
   #   end
   # end
 
-  def admin?
-    Role.where(code: 'admin')&.ids.include? role_id
+  act_as_rolable
+
+  def attributes
+    { name: name, email: email }
   end
 
-  def default?
-    Role.where(code: 'default')&.ids.include? role_id
+  def description
+    "#{name} (#{email})"
   end
 
   def active_for_authentication?
     super && active?
   end
+
+  # def admin?
+  #   Role.where(code: 'admin')&.ids.include? role_id
+  # end
+
+  # def default?
+  #   Role.where(code: 'default')&.ids.include? role_id
+  # end
 
   private
 

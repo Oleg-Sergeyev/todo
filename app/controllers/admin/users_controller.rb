@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
-module Admin
-  class UsersController < Admin::ApplicationController
+  class Admin::UsersController < Admin::ApplicationController
     before_action :set_admin_user, only: %i[show edit update destroy toggle generate]
     # after_action :verify_authorized, except: :index
     # after_action :verify_policy_scoped, only: :index
@@ -138,4 +137,4 @@ module Admin
                                    :active)
     end
   end
-end
+

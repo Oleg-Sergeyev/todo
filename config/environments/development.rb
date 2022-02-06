@@ -67,6 +67,15 @@ Rails.application.configure do
   config.file_watcher = ActiveSupport::EventedFileUpdateChecker
   config.action_mailer.defualt_url_options = { host: 'localhost', port: '3000' }
   config.action_mailer.raise_delivery_errors = false
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings = {
+    ssl: true,
+    address: 'smtp.yandex.ru',
+    port: 465,
+    authentication: 'login',
+    user_name: ENV['EMAIL_LOGIN'],
+    password: ENV['EMAIL_PASSWORD']
+  }
   # Uncomment if you wish to allow Action Cable access from any origin.
   # config.action_cable.disable_request_forgery_protection = true
 end
