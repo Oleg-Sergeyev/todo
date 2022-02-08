@@ -86,11 +86,11 @@ Rails.application.configure do
   # config.action_mailer.delivery_method = :smtp
   # config.action_mailer.smtp_settings = {
   #   ssl: true,
-  #   address: 'mail.hosting.reg.ru',
-  #   port: 465,
+  #   address: ENV['SERVER'],
+  #   port: ENV['SMTP_PORT'],
   #   authentication: 'login',
-  #   user_name: 'info@dvpweb.ru',
-  #   password: 'T#yu27gh@'
+  #   user_name: ENV['EMAIL_LOGIN'],
+  #   password: ENV['EMAIL_PASSWORD']
   # }
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
