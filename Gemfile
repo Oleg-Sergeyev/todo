@@ -31,6 +31,8 @@ gem 'rails-i18n', '~> 6.0'
 gem 'webpacker', '~> 5.0'
 gem 'grape'
 gem 'grape-entity'
+#gem 'letter_opener'
+gem 'dotenv-rails'
 
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.4', require: false
@@ -40,7 +42,6 @@ group :development, :test do
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
   gem 'factory_bot_rails'
   gem 'rspec-rails'
-  gem 'dotenv-rails'
 end
 
 group :development do

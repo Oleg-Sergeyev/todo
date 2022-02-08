@@ -34,3 +34,5 @@ yarn-debug.log*
 /config/.env
 /app/.env
 .env
+smtp_srv.env
+/app/env/*

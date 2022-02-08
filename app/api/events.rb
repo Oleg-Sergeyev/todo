@@ -12,7 +12,7 @@ class Events < Grape::API
 
     route_param :event_id, type: Integer do
       before do
-        @event = Event.find params[:event_id]
+        @event = Entities::Event.find params[:event_id]
       end
 
       get '/' do

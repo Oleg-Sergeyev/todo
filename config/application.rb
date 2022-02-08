@@ -34,20 +34,30 @@ module Todo
 
     #config.eager_load_paths << Rails.root.join('lib/classes')
     #config.eager_load_paths << Rails.root.join('/services')
-    #config.paths.add Rails.root.join('app', 'api', 'helpers')#, eager_load: true
-    #config.eager_load_paths << Rails.root.join('app', 'api', 'helpers')
+    
+	  #config.paths.add config.root.join('app', 'api', 'helpers').to_s, eager_load: true, recursive: true
+    #config.paths.add config.root.join('app/api/**/').to_s, eager_load: true, recursive: true
+    #config.paths.add config.root.join('app', 'api', 'entities').to_s, eager_load: true, recursive: true
+    #config.autoload_paths += Dir["#{Rails.root}/app/api/**/"]
+    #config.eager_load_paths += Dir["#{Rails.root}/app/api/**/"]
+    # config.eager_load_paths << Rails.root.join('app', 'api', 'helpers')
+    # config.eager_load_paths << Rails.root.join('app', 'api', 'entities')
 
     # config.paths.add Rails.root.join('lib').to_s, eager_load: true
     # config.paths.add Rails.root.join('app', 'api', 'helpers').to_s, eager_load: true
-    # config.paths.add Rails.root.join('app', 'admin').to_s, eager_load: true
-    config.autoload_paths += Dir["#{config.root}/app/api/**/"]
+    # config.paths.add Rails.root.join('app', 'api', 'entities').to_s, eager_load: true
+    #config.autoload_paths += Dir["#{config.root}/app/**/"]
     config.eager_load_paths << Rails.root.join('lib/classes')
     config.eager_load_paths << Rails.root.join('/services')
+    config.autoload_paths += %W(#{config.root}/app/env)
+    # config.autoload_paths << "#{Rails.root}/app/api/**/"
+    # config.eager_load_paths << "#{Rails.root}/app/api/**/"
+
     # config.eager_load_paths << Rails.root.join('app', 'api', 'helpers')
     #config.autoload_paths += Dir["#{config.root}/app/api/**/"]
     
-    # config.autoload_paths += Dir["#{config.root}/app/api/entities/**/"]
-    # config.paths.add File.join('app', 'api'), glob: File.join('**', '*.rb')
+    #config.autoload_paths += Dir["#{config.root}/app/api/entities/**/"]
+    #config.paths.add File.join('app', 'api'), glob: File.join('**', '*.rb')
     # config.autoload_paths += Dir[Rails.root.join('app', 'api', '*')]
     # config.autoloader = :classic
     #config.eager_load = true
