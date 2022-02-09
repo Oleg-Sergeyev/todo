@@ -1,7 +1,8 @@
-module FiltersHelper
-  extend Grape::API::Helpers
+# module FiltersHelper
+#   extend Grape::API::Helpers
 
-  params :filters do
-    optional :all, type: Boolean, desc: 'Вывести все включая завершенные'
-  end
-end
+#   def events_scope(all)
+#     scope = Event.order(:id)
+#     all ? scope : scope.where(done: false)
+#   end
+# end

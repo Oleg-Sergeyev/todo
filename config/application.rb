@@ -50,6 +50,10 @@ module Todo
     config.eager_load_paths << Rails.root.join('lib/classes')
     config.eager_load_paths << Rails.root.join('/services')
     config.autoload_paths += %W(#{config.root}/app/env)
+
+    config.paths.add Rails.root.join('lib').to_s, eager_load: true
+    config.paths.add Rails.root.join('app/api/helpers').to_s, eager_load: true
+
     # config.autoload_paths << "#{Rails.root}/app/api/**/"
     # config.eager_load_paths << "#{Rails.root}/app/api/**/"
 
