@@ -5,7 +5,7 @@ class RootApi < Grape::API
   format :json
   prefix :api
 
-  #mount Events
+  mount Events
 
   #mount Events
 
