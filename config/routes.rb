@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
-  # get 'items/index'
+  mount RootApi => '/'
   resources :events do
     resources :items
   end
@@ -30,7 +30,7 @@ Rails.application.routes.draw do
   match 'users/:id' => 'admin/users#destroy', via: :delete, as: :admin_destroy_user
   match 'users/:id' => 'admin/users#create', via: :create, as: :admin_create_user
   #match 'users/:id' => 'admin/users#edit', via: :edit, as: :admin_edit_user
-  put 'admin/users/:id/edit', to: 'admin/users#edit', via: :edit, as: :admin_edit_user
+  #put 'admin/users/:id/edit', to: 'admin/users#edit', via: :edit, as: :admin_edit_user
 
   resources :users
 

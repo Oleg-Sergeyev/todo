@@ -31,3 +31,8 @@
 /yarn-error.log
 yarn-debug.log*
 .yarn-integrity
+/config/.env
+/app/.env
+.env
+smtp_srv.env
+/app/env/*

@@ -1,12 +1,13 @@
 # frozen_string_literal: true
 
 class User < ApplicationRecord
+  include Rolable
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
-  after_initialize :def_methods
+  #after_initialize :def_methods
 
   before_destroy :log_before_destroy
   after_destroy :log_after_destroy
@@ -34,12 +35,26 @@ class User < ApplicationRecord
 
   has_one :seos, as: :promoted
 
-  def def_methods
-    Role.find_each do |role|
-      User.define_method "#{role.code}?" do
-        role_id == role.id
-      end
-    end
+  # def def_methods
+  #   Role.find_each do |role|
+  #     User.define_method "#{role.code}?" do
+  #       role_id == role.id
+  #     end
+  #   end
+  # end
+
+  act_as_rolable
+
+  def attributes
+    { name: name, email: email }
+  end
+
+  def description
+    "#{name} (#{email})"
+  end
+
+  def active_for_authentication?
+    super && active?
   end
 
   # def admin?
@@ -49,10 +64,6 @@ class User < ApplicationRecord
   # def default?
   #   Role.where(code: 'default')&.ids.include? role_id
   # end
-
-  def active_for_authentication?
-    super && active?
-  end
 
   private
 

@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
-module Admin
-  class UsersController < Admin::ApplicationController
+  class Admin::UsersController < Admin::ApplicationController
     before_action :set_admin_user, only: %i[show edit update destroy toggle generate]
     # after_action :verify_authorized, except: :index
     # after_action :verify_policy_scoped, only: :index
@@ -24,7 +23,7 @@ module Admin
       #@admin_users = policy_scope(User.includes(:role), policy_scope_class: Admin::UserPolicy::Scope)
       #.page(params[:page])
       #.per(5)#.as_json(only: [:id, :name, :email, :active, :code, :created_at])
-      Rails.logger.info "!!!!!!!!!!#{@admin_users.first.role.code}!!!!!!!!!!!!"
+      #Rails.logger.info "!!!!!!!!!!#{@admin_users.first.role.code}!!!!!!!!!!!!"
        #@admin_users = User.all.joins(:role).select("roles.code as code").group("users.id")
     end
 
@@ -138,4 +137,4 @@ module Admin
                                    :active)
     end
   end
-end
+
