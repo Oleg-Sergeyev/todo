@@ -18,6 +18,8 @@ Rails.application.routes.draw do
   end
 
   root 'home#index'
+  
+  get 'emails', to: 'emails#index'
 
   post :toggle, to: 'locales#toggle'
 

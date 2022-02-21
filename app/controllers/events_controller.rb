@@ -62,7 +62,7 @@ class EventsController < ApplicationController
     if %i[start_date final_date].all? { |s| event_params.key? s }
       render_interval_query(event_params[:rows_count], event_params[:start_date], event_params[:final_date])
     else
-      @event = policy_scope(Event).new(event_params.merge(user: User.all.sample))
+      @event = policy_scope(Event).new(event_params.merge(user: User.find(current_user.id)))
       respond_to do |format|
         if @event.save
           format.html { redirect_to event_url(@event), notice: 'Event was successfully created.' }
