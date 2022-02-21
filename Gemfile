@@ -3,7 +3,7 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '3.0.2'
+ruby '3.0.0'
 
 # gem 'activeadmin'
 # gem 'arctic_admin'
@@ -26,12 +26,16 @@ gem 'bootstrap', '~> 5.0.2'
 gem 'breadcrumbs_on_rails'
 gem 'devise-i18n'
 gem 'font-awesome-sass', '~> 5.15.1'
+gem 'grape'
+gem 'grape-entity'
+gem 'grape-kaminari'
+gem 'grape-swagger'
+gem 'grape-swagger-entity'
+gem 'grape-swagger-representable'
 gem 'jquery-rails'
 gem 'rails-i18n', '~> 6.0'
 gem 'webpacker', '~> 5.0'
-gem 'grape'
-gem 'grape-entity'
-#gem 'letter_opener'
+# gem 'letter_opener'
 gem 'dotenv-rails'
 
 # Reduces boot times through caching; required in config/boot.rb

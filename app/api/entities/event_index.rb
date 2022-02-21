@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Entities
   class EventIndex < Grape::Entity
     include ActionView::Helpers::TextHelper
@@ -12,5 +14,5 @@ module Entities
     def content
       truncate(object.content)
     end
-  end
+   end
 end

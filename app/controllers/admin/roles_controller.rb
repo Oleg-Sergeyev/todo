@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
-  class Admin::RolesController < Admin::ApplicationController
+module Admin
+  class RolesController < Admin::ApplicationController
     before_action :set_admin_role, only: %i[show edit update destroy]
 
     # GET /admin/roles or /admin/roles.json
@@ -81,4 +82,4 @@
       params.require(:role).permit(:id, :name, :code)
     end
   end
-
+end

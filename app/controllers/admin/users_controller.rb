@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
-  class Admin::UsersController < Admin::ApplicationController
+module Admin
+  class UsersController < Admin::ApplicationController
     before_action :set_admin_user, only: %i[show edit update destroy toggle generate]
     # after_action :verify_authorized, except: :index
     # after_action :verify_policy_scoped, only: :index
@@ -9,22 +10,22 @@
     # GET /admin/users or /admin/users.json
     def index
       authorize [:admin, User]
-      #admin_users = policy_scope(User, policy_scope_class: Admin::UserPolicy::Scope)
-      #sql = '(SELECT code FROM roles WHERE id = users.role_id) as code, id, name, email, active, role_id, created_at'
+      # admin_users = policy_scope(User, policy_scope_class: Admin::UserPolicy::Scope)
+      # sql = '(SELECT code FROM roles WHERE id = users.role_id) as code, id, name, email, active, role_id, created_at'
       # Rails.logger.info "++++#{User.select(code: Role.where(id: :user_id).pluck(:code).first).all}+++"
-      #@admin_users = admin_users.select(sql).page(params[:page]).per(5)
-      #@admin_users = admin_users.includes(:role).pluck(:name, :email, :active, :code)
+      # @admin_users = admin_users.select(sql).page(params[:page]).per(5)
+      # @admin_users = admin_users.includes(:role).pluck(:name, :email, :active, :code)
       # .page(params[:page])
       # .per(5)
-      #@admin_users = policy_scope(User.includes(:role), policy_scope_class: Admin::UserPolicy::Scope)
+      # @admin_users = policy_scope(User.includes(:role), policy_scope_class: Admin::UserPolicy::Scope)
       @admin_users = policy_scope(User.includes(:role), policy_scope_class: Admin::UserPolicy::Scope)
-      .page(params[:page])
-      .per(5)
-      #@admin_users = policy_scope(User.includes(:role), policy_scope_class: Admin::UserPolicy::Scope)
-      #.page(params[:page])
-      #.per(5)#.as_json(only: [:id, :name, :email, :active, :code, :created_at])
-      #Rails.logger.info "!!!!!!!!!!#{@admin_users.first.role.code}!!!!!!!!!!!!"
-       #@admin_users = User.all.joins(:role).select("roles.code as code").group("users.id")
+                     .page(params[:page])
+                     .per(5)
+      # @admin_users = policy_scope(User.includes(:role), policy_scope_class: Admin::UserPolicy::Scope)
+      # .page(params[:page])
+      # .per(5)#.as_json(only: [:id, :name, :email, :active, :code, :created_at])
+      # Rails.logger.info "!!!!!!!!!!#{@admin_users.first.role.code}!!!!!!!!!!!!"
+      # @admin_users = User.all.joins(:role).select("roles.code as code").group("users.id")
     end
 
     def toggle
@@ -78,18 +79,18 @@
     # PATCH/PUT /admin/users/1 or /admin/users/1.json
     def update
       authorize [:admin, @admin_user]
-        #user_update if params[:edit] == 'true'
-        #Rails.logger.info "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!#{admin_user_params}!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
-        respond_to do |format|
-          if @admin_user.update(admin_user_params)
-            format.html { redirect_to [:admin, @admin_user], notice: 'User was successfully updated.' }
-            format.json { render :edit, status: :ok, location: [:admin, @admin_user] }
-          else
-            format.html { render :edit, status: :unprocessable_entity }
-            format.json { render json: @admin_user.errors, status: :unprocessable_entity }
-          end
+      # user_update if params[:edit] == 'true'
+      # Rails.logger.info "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!#{admin_user_params}!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
+      respond_to do |format|
+        if @admin_user.update(admin_user_params)
+          format.html { redirect_to [:admin, @admin_user], notice: 'User was successfully updated.' }
+          format.json { render :edit, status: :ok, location: [:admin, @admin_user] }
+        else
+          format.html { render :edit, status: :unprocessable_entity }
+          format.json { render json: @admin_user.errors, status: :unprocessable_entity }
         end
-     end
+      end
+    end
 
     # DELETE /admin/users/1 or /admin/users/1.json
     def destroy
@@ -137,4 +138,4 @@
                                    :active)
     end
   end
-
+end

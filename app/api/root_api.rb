@@ -1,46 +1,31 @@
-# class RootApi
-class RootApi < Grape::API
-  #helpers FiltersHelper, EventsHelper
+# frozen_string_literal: true
 
+class RootApi < Grape::API
+  # helpers FiltersHelper, ParamsHelper
+ 
   format :json
   prefix :api
 
-  #mount Events
+  before do
+    error!('401 Unauthorized', 401) unless authenticated
+  end
 
-  #mount Events
+  helpers do
+    def warden
+      env['warden']
+    end
 
-  #helpers do
-    # def events_scope(all)
-    #   scope = Event.order(:id)
-    #   all ? scope : scope.where(done: false)
-    # end
+    def authenticated
+      return true if warden.authenticated?
+      params[:access_token] && @user = User.find_by_authentication_token(params[:access_token])
+    end
 
-    # params :filters do
-    #   optional :all, type: Boolean, desc: 'Вывести все включая завершенные'
-    # end
+    def current_user
+      warden.user || @user
+    end
+  end
 
-  #end
-
-  # resource :events do
-  #   desc 'Список дел'
-  #   params do
-  #     use :filters
-  #   end
-  #   get '/' do
-  #     events_scope(params[:all])
-  #   end
-
-  #   route_param :event_id, type: Integer do
-  #     before do
-  #       @event = Event.find params[:event_id]
-  #     end
-  #     get '/' do
-  #       @event 
-  #     end
-
-  #     post '/' do
-  #       @event.destroy
-  #     end
-  #   end
-  # end
+  mount Events
+  # api/swagger_doc
+  add_swagger_documentation
 end

@@ -1,7 +1,8 @@
 # frozen_string_literal: true
 
 # class Admin::ApplicationController
-  class Admin::ApplicationController < ApplicationController
+module Admin
+  class ApplicationController < ApplicationController
     before_action :authenticate_user!
     layout 'layouts/admin/application'
 
@@ -13,3 +14,4 @@
       Rails.logger.info "******************PARAMS #{params}*************************"
     end
   end
+end

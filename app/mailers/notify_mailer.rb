@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class NotifyMailer < ApplicationMailer
   def user_deadlines(email, events)
     @events = events

@@ -7,7 +7,7 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
-  #after_initialize :def_methods
+  # after_initialize :def_methods
 
   before_destroy :log_before_destroy
   after_destroy :log_after_destroy
@@ -44,6 +44,21 @@ class User < ApplicationRecord
   # end
 
   act_as_rolable
+
+  before_save :ensure_authentication_token
+
+  def ensure_authentication_token
+    self.authentication_token ||= generate_authentication_token
+  end
+
+  private
+
+  def generate_authentication_token
+    loop do
+      token = Devise.friendly_token
+      break token unless User.where(authentication_token: token).first
+    end
+  end 
 
   def attributes
     { name: name, email: email }

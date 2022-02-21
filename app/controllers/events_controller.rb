@@ -128,11 +128,11 @@ class EventsController < ApplicationController
   end
 
   def one_query
-    #sql = '(SELECT name FROM users WHERE id = events.user_id) as user_name,
+    # sql = '(SELECT name FROM users WHERE id = events.user_id) as user_name,
     #       (SELECT COUNT(*) FROM items WHERE event_id = events.id) as count_items,
     #       id, name, content, done, user_id, finished_at, created_at'
-    #Event.select(sql)
-    Event.includes(:users)
+    # Event.select(sql)
+    Event.includes(:user)
     # sql = 'SELECT
     #         (SELECT name FROM users WHERE id = events.user_id) as user_name,
     #         id,
